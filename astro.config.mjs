@@ -6,6 +6,6 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
   site: "https://crisokonkwo.github.io",
-  base: "/okonkwocare",
+  base: "/okonkwocare/",
 });
 
