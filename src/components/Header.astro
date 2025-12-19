@@ -1,0 +1,342 @@
+---
+import { site } from "../lib/site";
+import { Image } from "astro:assets";
+import logo from "../assets/okonkwocare-logo.png";
+
+const nav = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/services", label: "Services" },
+  { href: "/resources", label: "Resources" },
+//   { href: "/contact", label: "Contact" }
+];
+
+// Active link logic (exact match, with home special-cased)
+const path = Astro.url?.pathname ?? "/";
+const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
+---
+
+<header class="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
+        <!-- Brand -->
+        <a href="/" class="flex items-center gap-3 no-underline">
+            <!-- <div
+                class="grid h-10 w-10 place-items-center rounded-xl border border-brand-100 bg-brand-50 text-brand-800"
+                aria-hidden="true">
+                <span class="text-sm font-bold">OC</span>
+            </div> -->
+            <Image
+                src={logo}
+                alt="Okonkwo Care Pediatrics logo"
+                width={150}
+                height={99}
+                format="webp"
+                class="h-16 w-auto object-contain"
+                loading="eager"
+                decoding="async"
+            />
+            <!-- <div class="leading-tight">
+                <div class="text-sm font-semibold text-slate-900">{site.name}</div>
+                <div class="text-xs text-slate-600">{site.tagline}</div>
+            </div> -->
+        </a>
+
+        <!-- Desktop nav -->
+        <nav class="hidden items-center gap-6 text-sm lg:flex" aria-label="Primary">
+            {nav.map((item) => {
+                const active = isActive(item.href);
+                return (
+                    <a
+                        href={item.href}
+                        aria-current={active ? "page" : undefined}
+                        class:list={[
+                            "no-underline rounded-lg px-2 py-1 transition",
+                            active ? "text-brand-800 bg-brand-50" : "text-slate-700 hover:text-slate-900 hover:bg-slate-50"
+                        ]}>{item.label}
+                    </a>
+                );
+            })}
+            <a
+                href={`tel:${site.phoneTel}`}
+                class="rounded-xl bg-brand-700 px-4 py-2 text-sm font-semibold text-white no-underline hover:bg-brand-100"
+            >Contact Us</a>
+        </nav>
+
+        <!-- Mobile actions -->
+        <div class="flex items-center gap-2 lg:hidden">
+            <a
+                href={`tel:${site.phoneTel}`}
+                class="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-900 no-underline hover:bg-slate-50"
+                aria-label="Contact Us"
+            >Contact Us</a>
+
+            <!-- Hamburger -->
+            <button
+                id="menu-button"
+                type="button"
+                aria-label="Open menu"
+                aria-expanded="false"
+                aria-controls="mobile-drawer"
+                class="rounded-xl border border-slate-200 bg-white p-2 hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-brand-600"
+                >
+                <svg class="h-6 w-6 text-slate-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- FULL-SCREEN MOBILE DRAWER -->
+    <div
+        id="mobile-drawer"
+        class="mobile-drawer hidden lg:hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile navigation"
+        >
+        <!-- Overlay -->
+        <button
+            id="drawer-overlay"
+            type="button"
+            class="drawer-overlay"
+            aria-label="Close menu"
+            tabindex="-1"
+        ></button>
+
+        <!-- Panel -->
+        <div class="drawer-panel" role="document">
+            <div class="flex items-center justify-between border-b border-slate-200 px-4 py-4">
+                <a href="/" data-nav-link class="flex items-center gap-3 no-underline">
+                    <Image
+                        src={logo}
+                        alt="Okonkwo Care Pediatrics logo"
+                        width={160}
+                        height={99}
+                        format="webp"
+                        class="h-10 w-auto object-contain"
+                        loading="eager"
+                        decoding="async"
+                    />
+                    <!-- <div class="leading-tight">
+                        <div class="text-sm font-semibold text-slate-900">{site.name}</div>
+                        <div class="text-xs text-slate-600">Pediatrics</div>
+                    </div> -->
+                </a>
+                <button
+                    id="drawer-close"
+                    type="button"
+                    class="rounded-xl border border-slate-200 bg-white p-2 hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-brand-600"
+                    aria-label="Close menu"
+                    >
+                    <svg class="h-6 w-6 text-slate-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+                <nav class="px-4 py-4 space-y-2" aria-label="Mobile Primary">
+                    {nav.map((item) => {
+                        const active = isActive(item.href);
+                        return (
+                            <a
+                                href={item.href}
+                                data-nav-link
+                                aria-current={active ? "page" : undefined}
+                                class:list={[
+                                    "block rounded-xl px-4 py-3 text-sm font-medium no-underline transition",
+                                    active
+                                    ? "bg-brand-50 text-brand-800 border border-brand-100"
+                                    : "text-slate-900 hover:bg-slate-50 border border-transparent"
+                                ]}
+                                >
+                                    {item.label}
+                            </a>
+                        );
+                    })}
+
+                    <a
+                        href={`tel:${site.phoneTel}`}
+                        class="mt-3 block rounded-xl bg-brand-700 px-4 py-3 text-center text-sm font-semibold text-white no-underline hover:bg-brand-800"
+                        >
+                            Call {site.phoneDisplay}
+                    </a>
+
+                    <div class="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-xs leading-5 text-slate-600">
+                        For emergencies, dial 911. For urgent concerns, call the office.
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <!-- CSS-only animation hooks -->
+        <style>
+            /* Drawer container (full-screen) */
+            .mobile-drawer {
+                position: fixed;
+                inset: 0;
+                z-index: 60;
+            }
+
+            /* Overlay fade */
+            .drawer-overlay {
+                position: absolute;
+                inset: 0;
+                background: rgba(15, 23, 42, 0.35); /* slate-900 w/ opacity */
+                opacity: 0;
+                transition: opacity 180ms ease;
+            }
+
+            /* Panel slide (right side) */
+            .drawer-panel {
+                position: absolute;
+                top: 0;
+                right: 0;
+                height: 100%;
+                width: min(92vw, 420px);
+                background: white;
+                border-left: 1px solid rgba(226, 232, 240, 1); /* slate-200 */
+                transform: translateX(100%);
+                transition: transform 220ms ease;
+                box-shadow: 0 20px 60px rgba(2, 6, 23, 0.18);
+                display: flex;
+                flex-direction: column;
+            }
+
+            /* Open state */
+            .mobile-drawer[data-open="true"] .drawer-overlay {
+                opacity: 1;
+            }
+            .mobile-drawer[data-open="true"] .drawer-panel {
+            transform: translateX(0);
+            }
+
+            /* Reduced motion */
+            @media (prefers-reduced-motion: reduce) {
+                .drawer-overlay,
+                .drawer-panel {
+                    transition: none !important;
+                }
+            }
+        </style>
+
+        <!-- Behavior: toggle + close-on-route + focus trap + iOS-safe scroll lock -->
+        <script>
+            (() => {
+                const button = document.getElementById("menu-button");
+                const drawer = document.getElementById("mobile-drawer");
+                const overlay = document.getElementById("drawer-overlay");
+                const closeBtn = document.getElementById("drawer-close");
+
+                if (!button || !drawer || !overlay || !closeBtn) return;
+                
+                let lastFocused = null;
+                let scrollY = 0;
+
+                const getFocusable = () =>
+                    Array.from(
+                        drawer.querySelectorAll(
+                            'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+                        )
+                    ).filter((el) => el.offsetParent !== null);
+
+                    // iOS-safe scroll lock (prevents background scroll/bounce)
+                    const lockScroll = () => {
+                        scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+                        document.body.style.position = "fixed";
+                        document.body.style.top = `-${scrollY}px`;
+                        document.body.style.left = "0";
+                        document.body.style.right = "0";
+                        document.body.style.width = "100%";
+                        document.body.style.overflow = "hidden";
+                    };
+
+                    const unlockScroll = () => {
+                        document.body.style.position = "";
+                        document.body.style.top = "";
+                        document.body.style.left = "";
+                        document.body.style.right = "";
+                        document.body.style.width = "";
+                        document.body.style.overflow = "";
+                        window.scrollTo(0, scrollY);
+                    };
+
+                    const open = () => {
+                        lastFocused = document.activeElement;
+                        drawer.classList.remove("hidden");
+                        drawer.setAttribute("data-open", "true");
+                        button.setAttribute("aria-expanded", "true");
+                        button.setAttribute("aria-label", "Close menu");
+                        lockScroll();
+
+                        // Focus first actionable element in panel
+                        const focusables = getFocusable();
+                        if (focusables.length) focusables[0].focus();
+                    };
+
+                    const close = () => {
+                        drawer.setAttribute("data-open", "false");
+                        button.setAttribute("aria-expanded", "false");
+                        button.setAttribute("aria-label", "Open menu");
+                        unlockScroll();
+
+                        // Wait for animation, then hide (keeps CSS-only animation intact)
+                        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                        const delay = reduceMotion ? 0 : 220;
+                        window.setTimeout(() => drawer.classList.add("hidden"), delay);
+
+                        if (lastFocused && typeof lastFocused.focus === "function") lastFocused.focus();
+                    };
+
+                    const toggle = () => {
+                        const isOpen = drawer.getAttribute("data-open") === "true";
+                        isOpen ? close() : open();
+                    };
+
+                    // Toggle handlers
+                    button.addEventListener("click", toggle);
+                    overlay.addEventListener("click", close);
+                    closeBtn.addEventListener("click", close);
+
+                    // Close menu when clicking a nav link (route change intent)
+                    drawer.querySelectorAll("[data-nav-link]").forEach((a) => {
+                        a.addEventListener("click", () => close());
+                    });
+
+                    // Close on Escape + focus trap
+                    drawer.addEventListener("keydown", (e) => {
+                        if (e.key === "Escape") {
+                        e.preventDefault();
+                        close();
+                        return;
+                        }
+
+                    if (e.key !== "Tab") return;
+
+                    const focusables = getFocusable();
+                    if (!focusables.length) return;
+
+                    const first = focusables[0];
+                    const last = focusables[focusables.length - 1];
+
+                    if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                    } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                    }
+                });
+
+                // Close on back/forward navigation
+                window.addEventListener("popstate", () => {
+                    if (drawer.getAttribute("data-open") === "true") close();
+                });
+
+                // Close on Astro view transition navigation (if enabled later)
+                document.addEventListener("astro:before-swap", () => {
+                    if (drawer.getAttribute("data-open") === "true") close();
+                });
+            })();
+        </script>
+    </div>
+</header>

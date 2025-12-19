@@ -1,0 +1,27 @@
+---
+const { title,
+    description,
+    canonical = Astro.url.toString(),
+    noindex = false
+ } = Astro.props;
+
+ const finalTitle = title ? `${title} | Okonkwo Care Pediatrics | Holistic Integrative Pediatric Care in Miami | Dr. Margaret Okonkwo` : "Okonkwo Care Pediatrics | Holistic Integrative Pediatric Care in Miami | Dr. Margaret Okonkwo";
+ const finalDescription = 
+    description ?? 
+    "Discover Miami’s leader in holistic pediatric ADHD care. Okonkwo Care Pediatrics offers concierge-style visits focused on natural healing and personalized child wellness.";
+ ---
+ 
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>{finalTitle}</title>
+ <meta name="description" content={finalDescription} />
+ <link rel="canonical" href={canonical} />
+ {noindex ? <meta name="robots" content="noindex, nofollow" /> : null}
+ 
+<!-- Open Graph Tags -->
+ <meta property="og:title" content={finalTitle} />
+ <meta property="og:description" content={finalDescription} />
+ <meta property="og:type" content="website" />
+ <meta property="og:url" content={canonical} />
+ <meta property="og:site_name" content="Okonkwo Care Pediatrics" />
+

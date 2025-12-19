@@ -1,16 +1,21 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../lib/site";
+import Button from "../components/Button.astro";
+// import Card from "../components/Card.astro";
+// import Badge from "../components/Badge.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout 
+	title="Home" 
+	description="Discover Miami’s leader in holistic pediatric ADHD care. Okonkwo Care Pediatrics offers concierge-style visits focused on natural healing and personalized child wellness.">
+
+	<!-- Mobile sticky call CTA -->
+  	<div class="fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 bg-white/95 backdrop-blur lg:hidden">
+    	<div class="mx-auto max-w-7xl px-4 py-3">
+			<a href={`tel:${site.phoneTel}`}
+			class="block w-full rounded-xl bg-brand-700 px-5 py-3 text-center text-sm font-semibold text-white no-underline hover:bg-brand-800"
+      		> Contact Us {site.phoneDisplay}</a>
+    	</div>
+  	</div>
+</BaseLayout>
