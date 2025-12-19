@@ -3,12 +3,14 @@ import { site } from "../lib/site";
 import { Image } from "astro:assets";
 import logo from "../assets/okonkwocare-logo.png";
 
+const base = import.meta.env.BASE_URL;
+
 const nav = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/services", label: "Services" },
-  { href: "/resources", label: "Resources" },
-//   { href: "/contact", label: "Contact" }
+  { href: `${base}`, label: "Home" },
+  { href: `${base}about`, label: "About" },
+  { href: `${base}services`, label: "Services" },
+  { href: `${base}resources`, label: "Resources" },
+//   { href: `${base}contact`, label: "Contact" }
 ];
 
 // Active link logic (exact match, with home special-cased)
