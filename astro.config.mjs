@@ -5,6 +5,6 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()]
   },
-  site: "https://example.com"
+  site: "https://crisokonkwo.github.io/okonkwocare/"
 });
 
