@@ -57,3 +57,13 @@ a:hover {
     color: var(--color-brand-800);
     text-decoration: underline;
 }
+
+/* Reserve space for mobile sticky CTA */
+@media (max-width: 1023px) {
+    .mobile-cta {
+        height: 2.25rem;
+    }
+    body {
+        padding-bottom: 2.25rem; /* ~36px */
+    }
+}

@@ -10,12 +10,94 @@ import Button from "../components/Button.astro";
 	title="Home" 
 	description="Discover Miami’s leader in holistic pediatric ADHD care. Okonkwo Care Pediatrics offers concierge-style visits focused on natural healing and personalized child wellness.">
 
+	<section class="bg-gradient-to-b from-slate-50 to-white">
+  		<div class="mx-auto max-w-7xl px-4 py-12 md:py-16">
+    		<div class="grid items-start gap-10 lg:grid-cols-2">
+      			<!-- Left: Primary message -->
+      			<div class="space-y-6">
+					<h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl text-center lg:text-left">
+						Trusted Holistic Integrative Pediatric Care in Miami, Florida
+					</h1>
+
+					<p class="text-base sm:text-md leading-7 text-slate-700">
+						Welcome to Okonkwo Care Pediatrics, a concierge-style practice led by Dr. Margaret Okonkwo, offering
+					personalized, unrushed visits that integrate evidence-based traditional pediatrics with holistic approch to support your child’s physical, emotional, and social well-being.
+					</p>
+
+					<ul class="space-y-2 text-sm sm:text-base text-slate-700">
+						<li class="flex gap-2">
+							<span class="mt-1 h-2 w-2 rounded-full bg-brand-700 flex-none"></span>
+							Preventive care from infancy through young adulthood
+						</li>
+						<li class="flex gap-2">
+							<span class="mt-1 h-2 w-2 rounded-full bg-brand-700 flex-none"></span>
+							Specialized ADHD evaluations and management
+						</li>
+						<li class="flex gap-2">
+							<span class="mt-1 h-2 w-2 rounded-full bg-brand-700 flex-none"></span>
+							Strong doctor–patient relationships to ensure tailored care
+						</li>
+						<li class="flex gap-2">
+							<span class="mt-1 h-2 w-2 rounded-full bg-brand-700 flex-none"></span>
+							Compassionate care from infancy to young adulthood.
+						</li>
+					</ul>
+
+					<div class="flex flex-col gap-3 sm:flex-row sm:gap-4">
+						<Button href="/services" variant="primary" size="lg" ariaLabel="View Our Services">
+							View Our Services
+						</Button>
+						<Button href="/contact" variant="secondary" size="lg" ariaLabel="Contact Okonkwo Care Pediatrics">
+							Contact Us
+						</Button>
+					</div>
+				</div>
+
+      			<!-- Right: Proof / differentiators -->
+      			<div class="space-y-4">
+					<h2 class="text-xl font-semibold tracking-tight text-slate-900 text-center lg:text-left">
+						What we do — and what makes us different
+					</h2>
+
+					<div class="rounded-3xl border border-slate-200 bg-white p-4 shadow-soft">
+						<div class="overflow-hidden rounded-2xl">
+							<img
+								src="/images/doctor-okonkwo-consultation.webp"
+								alt="Dr. Margaret Okonkwo"
+								class="w-full h-auto object-contain"
+								loading="eager"
+								decoding="async"
+							/>
+						</div>
+
+          				<div class="mt-4 grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+            				<div class="rounded-2xl bg-slate-50 p-3">
+              					<div class="text-sm font-semibold text-slate-900">Unrushed visits</div>
+              					<div class="mt-1 text-xs leading-5 text-slate-600">Time to listen and plan.</div>
+            				</div>
+            				<div class="rounded-2xl bg-slate-50 p-3">
+              					<div class="text-sm font-semibold text-slate-900">Integrative approach</div>
+              					<div class="mt-1 text-xs leading-5 text-slate-600">Traditional + holistic support.</div>
+            				</div>
+            				<div class="rounded-2xl bg-slate-50 p-3">
+              					<div class="text-sm font-semibold text-slate-900">Continuity</div>
+              					<div class="mt-1 text-xs leading-5 text-slate-600">A consistent care team.</div>
+            				</div>
+          				</div>
+        			</div>
+      			</div>
+    		</div>
+  		</div>
+	</section>
+	
 	<!-- Mobile sticky call CTA -->
-  	<div class="fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 bg-white/95 backdrop-blur lg:hidden">
-    	<div class="mx-auto max-w-7xl px-4 py-3">
-			<a href={`tel:${site.phoneTel}`}
-			class="block w-full rounded-xl bg-brand-700 px-5 py-3 text-center text-sm font-semibold text-white no-underline hover:bg-brand-800"
-      		> Contact Us {site.phoneDisplay}</a>
-    	</div>
-  	</div>
+	<div class="mobile-cta">
+		<div class="fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 bg-white/95 backdrop-blur lg:hidden">
+			<div class="mx-auto max-w-7xl px-4 py-3">
+				<a href={`tel:${site.phoneTel}`}
+				class="block w-full rounded-xl bg-brand-700 px-5 py-3 text-center text-sm font-semibold text-white no-underline hover:bg-brand-800"
+				> Contact Us {site.phoneDisplay}</a>
+			</div>
+		</div>
+	</div>
 </BaseLayout>
