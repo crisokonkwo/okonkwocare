@@ -1,4 +1,5 @@
 ---
+import CredibilityStrip from "../components/CredibilityStrip.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { site } from "../lib/site";
 import Button from "../components/Button.astro";
@@ -34,30 +35,26 @@ const base = import.meta.env.BASE_URL;
 					personalized, unrushed visits that integrate evidence-based traditional pediatrics with holistic approach to support your child’s physical, emotional, and social well-being.
 					</p>
 
-					<ul class="space-y-2 text-sm sm:text-base text-slate-700">
+					<ul class="list-disc pl-5 space-y-2 text-sm sm:text-base text-slate-700">
 						<li class="flex gap-2">
 							<span class="mt-1 h-2 w-2 rounded-full bg-brand-700 flex-none"></span>
 							Preventive care from infancy through young adulthood
 						</li>
 						<li class="flex gap-2">
 							<span class="mt-1 h-2 w-2 rounded-full bg-brand-700 flex-none"></span>
-							Specialized ADHD evaluations and management
+							Specialized ADHD evaluations and ongoing management
 						</li>
 						<li class="flex gap-2">
 							<span class="mt-1 h-2 w-2 rounded-full bg-brand-700 flex-none"></span>
 							Strong doctor–patient relationships to ensure tailored care
 						</li>
-						<li class="flex gap-2">
-							<span class="mt-1 h-2 w-2 rounded-full bg-brand-700 flex-none"></span>
-							Compassionate care from infancy to young adulthood.
-						</li>
 					</ul>
 
 					<div class="flex flex-col gap-3 sm:flex-row sm:gap-4">
-						<Button href="/services" variant="primary" size="lg" ariaLabel="View Our Services">
+						<Button href={`${base}services`} variant="primary" size="lg" ariaLabel="View Our Services">
 							View Our Services
 						</Button>
-						<Button href="/contact" variant="secondary" size="lg" ariaLabel="Contact Okonkwo Care Pediatrics">
+						<Button href={`${base}contact`} variant="secondary" size="lg" ariaLabel="Contact Okonkwo Care Pediatrics">
 							Contact Us
 						</Button>
 					</div>
@@ -116,11 +113,13 @@ const base = import.meta.env.BASE_URL;
 							title="Holistic ADHD Program"
 							description="Discover compassionate, holistic ADHD care tailored to your child’s unique needs. Our integrative approach supports families with personalized, nurturing solutions."
 						>
-							<Button href="/services" variant="ghost">Learn More</Button>
+							<Button href={`${base}blog`} variant="ghost">Learn More</Button>
 						</Card>
 						</div>
 					</section>
 	</section>
+
+	<CredibilityStrip />
 	
 	<TestimonialsSection />
 	

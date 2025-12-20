@@ -1,0 +1,69 @@
+---
+import { Image } from "astro:assets";
+
+import media1 from "../assets/media-1.webp"; // TV interview
+import media2 from "../assets/media-2.webp"; // Speaking event
+import media3 from "../assets/media-3.webp"; // Panel / podcast
+---
+
+<section class="border-y border-slate-200 bg-slate-50">
+  <div class="mx-auto max-w-7xl px-4 py-8">
+    <div class="text-center space-y-2">
+      <p class="text-xs font-semibold uppercase tracking-wide text-brand-700">
+        Community & Media
+      </p>
+      <h3 class="text-base font-semibold text-slate-900">
+        Sharing pediatric expertise beyond the clinic
+      </h3>
+      <p class="mx-auto max-w-xl text-sm text-slate-600">
+        Dr. Okonkwo is regularly invited to speak and share insights on pediatric
+        health, holistic care, and parent education.
+      </p>
+    </div>
+
+    <!-- Image row -->
+    <div class="mt-6 grid grid-cols-3 gap-4 sm:gap-6">
+      <figure class="space-y-2">
+        <div class="overflow-hidden rounded-xl bg-slate-100 ring-1 ring-brand-700/10">
+          <Image
+            src={media1}
+            alt="Dr. Okonkwo speaking during a television interview"
+            class="h-32 w-full object-cover sm:h-40"
+            loading="lazy"
+          />
+        </div>
+        <figcaption class="text-xs text-slate-500">
+          Television interview
+        </figcaption>
+      </figure>
+
+      <figure class="space-y-2">
+        <div class="overflow-hidden rounded-xl bg-slate-100 ring-1 ring-brand-700/10">
+          <Image
+            src={media2}
+            alt="Dr. Okonkwo speaking at a community health event"
+            class="h-32 w-full object-cover sm:h-40"
+            loading="lazy"
+          />
+        </div>
+        <figcaption class="text-xs text-slate-500">
+          Community speaking event
+        </figcaption>
+      </figure>
+
+      <figure class="space-y-2">
+        <div class="overflow-hidden rounded-xl bg-slate-100 ring-1 ring-brand-700/10">
+          <Image
+            src={media3}
+            alt="Dr. Okonkwo participating in a panel or podcast discussion"
+            class="h-32 w-full object-cover sm:h-40"
+            loading="lazy"
+          />
+        </div>
+        <figcaption class="text-xs text-slate-500">
+          Panel & interviews
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>

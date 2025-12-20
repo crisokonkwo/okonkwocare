@@ -5,7 +5,7 @@ import { site } from "../lib/site";
 const currentYear = new Date().getFullYear();
 ---
 <footer class="border-t border-slate-200 bg-slate-50">
-  <div class="mx-auto max-w-7xl px-4 py-10">
+  <div class="mx-auto max-w-7xl px-4 py-5">
     <div class="grid gap-10 md:grid-cols-3 md:items-start">
 
       <!-- Clinic info -->
@@ -31,7 +31,7 @@ const currentYear = new Date().getFullYear();
       </div>
 
       <!-- Location + Contact + Social -->
-      <div class="space-y-1 text-slate-700">
+      <div class="space-y-1 text-slate-700 md:text-end">
 
         <!-- Contact & Location -->
         <div class="text-xs font-semibold uppercase tracking-wide text-slate-900">
@@ -62,7 +62,7 @@ const currentYear = new Date().getFullYear();
             For updates & notices
           </p>
 
-          <div class="mt-1 flex items-center gap-4">
+          <div class="mt-1 flex items-center gap-4 md:justify-end">
             {site.socials?.facebook && (
               <a
                 href={site.socials.facebook}
