@@ -1,0 +1,74 @@
+---
+type Testimonial = {
+  quote: string;
+  name: string;
+  source?: string;
+  rating?: number;
+};
+
+const { testimonials } = Astro.props as { testimonials: Testimonial[] };
+---
+
+<div class="swiper testimonials-swiper max-w-2xl mx-auto pb-10">
+    <div class="swiper-wrapper">
+        {testimonials.map((t) => (
+            <div class="swiper-slide">
+                <article class="rounded-2xl bg-slate-10 p-6 h-auto min-h-[280px] flex flex-col">
+                    <div class="flex items-center justify-between mb-3">
+                        <div
+                            class="inline-flex items-center gap-1 text-sm text-amber-500"
+                            aria-label={`${t.rating ?? 5} out of 5 stars`}
+                            >
+                            {Array.from({ length: t.rating ?? 5 }).map(() => (
+                                <span aria-hidden="true">★</span>
+                            ))}
+                        </div>
+                        <span class="text-xs text-slate-500">
+                            {t.source ?? "Review"}
+                        </span>
+                    </div>
+
+                    <p class="mt-2 text-sm leading-relaxed text-slate-700 flex-1 overflow-y-auto max-h-[180px]" set:html={`"${t.quote}"`}>
+                    </p>
+
+                    <p class="mt-4 text-sm font-semibold text-slate-900 pt-3 border-t border-slate-200">
+                        — {t.name}
+                    </p>
+                </article>
+            </div>
+        ))}
+    </div>
+
+  <!-- Pagination MUST be sibling of wrapper -->
+  <div class="swiper-pagination mt-10"></div>
+
+  <!-- Init -->
+  <script>
+    import Swiper from "swiper";
+    import { Autoplay, Pagination } from "swiper/modules";
+    import "swiper/css";
+    import "swiper/css/pagination";
+
+    const el = document.querySelector(".testimonials-swiper");
+    if (el) {
+      new Swiper(el, {
+        modules: [Autoplay, Pagination],
+        slidesPerView: 1,
+        loop: true,
+        speed: 800,
+        spaceBetween: 12,
+        
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+          reverseDirection: false, // set true if you want opposite direction
+        },
+        pagination: {
+          el: el.querySelector(".swiper-pagination"),
+          clickable: true,
+        },
+      });
+    }
+  </script>
+</div>

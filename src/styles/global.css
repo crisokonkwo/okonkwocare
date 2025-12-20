@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 /* ===== Tailwind v4 Configuration ===== */
 @theme {
   /* Custom colors */
@@ -67,3 +68,33 @@ a:hover {
         padding-bottom: 2.25rem; /* ~36px */
     }
 }
+
+:root {
+  --brand-600: theme(colors.brand.600);
+}
+
+/* Brand-styled Swiper pagination */
+.testimonials-swiper .swiper-pagination-bullet {
+  background-color: var(--brand-600);
+  opacity: 0.25;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  width: 8px;
+  height: 8px;
+}
+
+.testimonials-swiper .swiper-pagination-bullet-active {
+  /* background-color: #4ade80; tree green */
+  opacity: 0.9;
+  transform: scale(1.1);
+  width: 10px;
+  height: 10px;
+}
+
+.testimonials-swiper .swiper-pagination {
+    position: relative !important;
+    margin-top: 1rem !important;
+    display: flex;
+    justify-content: center;}
+
+
+
