@@ -6,7 +6,7 @@ export const site = {
     phoneTel: "+13053815507",
     addressLine1: "5582 N.E. 4th Ct Suite #9",
     addressLine2: "Miami, FL 33137",
-    mapUrl: "https://maps.google.com/?q=5582+N.E.+4th+Ct+Suite+#9,+Miami,+FL+33137",
+    mapUrl: "https://maps.app.goo.gl/p5RDXUgNxEsUCrUv7",
     email: "info@okonkwocare.com",
 
     socials: {
