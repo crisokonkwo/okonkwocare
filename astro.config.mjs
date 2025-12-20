@@ -3,9 +3,28 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    build: {
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true, // Remove console.log in production
+          drop_debugger: true,
+          pure_funcs: ['console.log', 'console.info', 'console.debug'],
+        },
+        format: {
+          comments: false, // Remove comments
+        },
+      },
+      cssMinify: true,
+      reportCompressedSize: false, // Faster builds
+    },
   },
   site: "https://crisokonkwo.github.io",
   base: "/okonkwocare/",
+  compressHTML: true,
+  build: {
+    inlineStylesheets: 'auto',
+  },
 });
 

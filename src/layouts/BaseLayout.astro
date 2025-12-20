@@ -12,12 +12,18 @@ const base = import.meta.env.BASE_URL;
 <html lang="en">
     <head>
         <Seo title={title} description={description} />
+        
+        <!-- Preconnect to speed up third-party resources if any -->
+        <!-- <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin> -->
+        
+        <!-- Favicons - defer non-critical icons -->
         <link rel="icon" href={`${base}favicon.ico`} sizes="any" />
         <link rel="icon" type="image/png" sizes="96x96" href={`${base}favicon/favicon-96x96.png`} />
-        <link rel="icon" type="image/png" sizes="192x192" href={`${base}favicon/web-app-manifest-192x192.png`} />
-        <link rel="icon" type="image/png" sizes="512x512" href={`${base}favicon/web-app-manifest-512x512.png`} />
         
-        <link rel="apple-touch-icon" href={`${base}favicon/apple-touch-icon.png`} />
+        <!-- Defer these favicons as they're not critical for initial render -->
+        <link rel="icon" type="image/png" sizes="192x192" href={`${base}favicon/web-app-manifest-192x192.png`} media="print" onload="this.media='all'" />
+        <link rel="icon" type="image/png" sizes="512x512" href={`${base}favicon/web-app-manifest-512x512.png`} media="print" onload="this.media='all'" />
+        <link rel="apple-touch-icon" href={`${base}favicon/apple-touch-icon.png`} media="print" onload="this.media='all'" />
         <link rel="mask-icon" href={`${base}favicon/safari-pinned-tab.svg`} color="#4ade80" />
         <link rel="manifest" href={`${base}favicon/site.webmanifest`} />
         <meta name="theme-color" content="#4ade80" />

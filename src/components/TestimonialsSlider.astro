@@ -1,4 +1,7 @@
 ---
+import 'swiper/css';
+import 'swiper/css/pagination';
+
 type Testimonial = {
   quote: string;
   name: string;
@@ -17,6 +20,7 @@ const { testimonials } = Astro.props as { testimonials: Testimonial[] };
                     <div class="flex items-center justify-between mb-3">
                         <div
                             class="inline-flex items-center gap-1 text-sm text-amber-500"
+                            role="img"
                             aria-label={`${t.rating ?? 5} out of 5 stars`}
                             >
                             {Array.from({ length: t.rating ?? 5 }).map(() => (
@@ -44,31 +48,38 @@ const { testimonials } = Astro.props as { testimonials: Testimonial[] };
 
   <!-- Init -->
   <script>
-    import Swiper from "swiper";
-    import { Autoplay, Pagination } from "swiper/modules";
-    import "swiper/css";
-    import "swiper/css/pagination";
+    // Defer Swiper initialization until after page load
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => initSwiper());
+    } else {
+      setTimeout(initSwiper, 1);
+    }
 
-    const el = document.querySelector(".testimonials-swiper");
-    if (el) {
-      new Swiper(el, {
-        modules: [Autoplay, Pagination],
-        slidesPerView: 1,
-        loop: true,
-        speed: 800,
-        spaceBetween: 12,
-        
-        autoplay: {
-          delay: 2500,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
-          reverseDirection: false, // set true if you want opposite direction
-        },
-        pagination: {
-          el: el.querySelector(".swiper-pagination"),
-          clickable: true,
-        },
-      });
+    async function initSwiper() {
+      const { default: Swiper } = await import("swiper");
+      const { Autoplay, Pagination } = await import("swiper/modules");
+
+      const el = document.querySelector(".testimonials-swiper");
+      if (el) {
+        new Swiper(el, {
+          modules: [Autoplay, Pagination],
+          slidesPerView: 1,
+          loop: true,
+          speed: 800,
+          spaceBetween: 12,
+          
+          autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+            reverseDirection: false, // set true if you want opposite direction
+          },
+          pagination: {
+            el: el.querySelector(".swiper-pagination"),
+            clickable: true,
+          },
+        });
+      }
     }
   </script>
 </div>
