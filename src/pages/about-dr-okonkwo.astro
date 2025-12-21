@@ -3,7 +3,7 @@ import Layout from "../layouts/BaseLayout.astro";
 import Affiliation from "../components/Affiliation.astro";
 // If you have a headshot, place it in src/assets and use Astro <Image />.
 import { Image } from "astro:assets";
-// import headshot from "../assets/dr-okonkwo.webp";
+import drOkonkwoHeadshot from "../assets/dr-okonkwo-headshot.webp";
 import drOkonkwoPhoto from "../assets/dr-okonkwo.webp";
 
 
@@ -43,7 +43,24 @@ const base = import.meta.env.BASE_URL;
 ---
 
 <Layout title={`About ${doctorName} | ${clinicName}`}>
-  <section class="bg-gradient-to-b from-slate-50 to-white">
+  <!-- Schema linking = adding structured data (JSON-LD) to your site so Google (and other search engines) can clearly understand -->
+  <script type="application/ld+json" is:inline>
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Physician",
+      "@id": "https://okonkwocarepediatrics.com/about-dr-okonkwo/#physician",
+      "name": "Dr. Margaret Okonkwo",
+      "url": "https://okonkwocarepediatrics.com/about-dr-okonkwo/",
+      "image": "https://okonkwocarepediatrics.com/images/dr-okonkwo-headshot.webp",
+      "worksFor": {
+        "@type": "MedicalBusiness",
+        "@id": "https://okonkwocarepediatrics.com/#clinic"
+      },
+      "medicalSpecialty": "Pediatrics"
+    })}
+  </script>
+
+  <section class="bg-linear-to-b from-slate-50 to-white">
     <div class="mx-auto max-w-7xl px-4 py-12 md:py-16">
       <div class="grid gap-10 lg:grid-cols-12 lg:items-start">
 
@@ -63,7 +80,7 @@ const base = import.meta.env.BASE_URL;
                 relationships.
                 <br><br>
                 Raised in Virginia Beach, Virginia, Dr. Okonkwo completed her undergraduate studies at The College of William & Mary 
-                and earned her medical degree at VCU’s Medical College of Virginia in Richmond. She ventured to Florida and completed her pediatric residency 
+                and earned her medical degree at VCU's Medical College of Virginia in Richmond. She ventured to Florida and completed her pediatric residency 
                 training at the University of Miami.
                 <br><br>
                 After residency, she served as a house physician in the cardiology department at Jackson Memorial Hospital. She later expanded her clinical 
@@ -79,7 +96,7 @@ const base = import.meta.env.BASE_URL;
                 centered on personalized, compassionate care.
                 <br><br>
                 She is thrilled to reconnect with families through her new practice, Okonkwo Care Pediatrics, offering empathetic 
-                support for every child’s unique health journey.
+                support for every child's unique health journey.
             </p>
           </header>
 
@@ -119,7 +136,7 @@ const base = import.meta.env.BASE_URL;
             </p>
             <div class="flex flex-col gap-3 sm:flex-row">
               <a
-                href="/press"
+                href={`${base}press`}
                 class="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 no-underline transition hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-brand-600"
               >
                 View Media & Speaking
@@ -146,13 +163,12 @@ const base = import.meta.env.BASE_URL;
             <div class="flex items-start gap-4">
               <!-- Swap for <Image /> headshot if available -->
               <div class="h-16 w-16 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-500 text-xs">
-                Headshot
-                <!-- <Image
-                  src={headshot}
-                  alt={`Headshot of ${doctorName}`}
-                  class="h-16 w-16 rounded-2xl object-cover"
-                  loading="lazy"
-                /> -->
+                <Image
+                  src={drOkonkwoHeadshot}
+                  alt="Dr. Margaret Okonkwo, board-certified pediatrician"
+                  class="w-full rounded-2xl object-cover aspect-3/4"
+                  priority
+                />
                 
               </div>
 

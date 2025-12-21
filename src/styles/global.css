@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@import "swiper/css";
+@import "swiper/css/pagination";
+@import "swiper/css/navigation";
 
 
 /* ===== Tailwind v4 Configuration ===== */
@@ -70,12 +73,12 @@ a:hover {
 }
 
 :root {
-  --brand-600: theme(colors.brand.600);
+  --brand-400: var(--color-brand-400);
 }
 
 /* Brand-styled Swiper pagination */
 .testimonials-swiper .swiper-pagination-bullet {
-  background-color: var(--brand-600);
+  background-color: var(--brand-400);
   opacity: 0.25;
   transition: opacity 0.2s ease, transform 0.2s ease;
   width: 8px;
@@ -96,5 +99,30 @@ a:hover {
     display: flex;
     justify-content: center;}
 
+/* Hide scrollbar for snap carousels */
+/* .no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; } */
 
+.credibility-swiper .swiper-pagination-bullet {
+  background-color: var(--brand-400);
+  opacity: 0.25;
+  width: 8px;
+  height: 8px;
+}
+.credibility-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+  transform: scale(1.1);
+  width: 10px;
+  height: 10px;
+}
+.credibility-swiper .swiper-pagination {
+    position: relative !important;
+    margin-top: 1rem !important;
+    display: flex;
+    justify-content: center;
+}
+.credibility-swiper .swiper-button-next,
+.credibility-swiper .swiper-button-prev {
+  color: var(--brand-400);
+}
 

@@ -1,12 +1,61 @@
 ---
 import { Image } from "astro:assets";
 
-import media1 from "../assets/media-1.webp"; // TV interview
-import media2 from "../assets/media-2.webp"; // Speaking event
-import media3 from "../assets/media-3.webp"; // Panel / podcast
+import media2 from "../assets/media2.webp";
+import media3 from "../assets/nasdaq-billboard.webp";
+import media4 from "../assets/Boston 2025-3786.jpg";
+import media5 from "../assets/Boston 2025-3808.jpg";
+
+const base = import.meta.env.BASE_URL;
+
+const mediaItems = [
+  {
+    type: "video",
+    src: `${base}videos/surgeon-general-meeting.mp4`,
+    poster: `${base}images/surgeon-general-meeting-poster.webp`,
+    caption: "Video: Professional public health meeting",
+    fit: "cover",
+  },
+  {
+    type: "image",
+    src: media2,
+    alt: "Television interview with Dr. Okonkwo",
+    caption: "Television interview",
+    fit: "cover",
+  },
+  {
+    type: "image",
+    src: media3,
+    alt: "Nasdaq billboard featuring Dr. Okonkwo",
+    caption: "Nasdaq billboard",
+    fit: "contain", // tall image
+    expandable: true,
+  },
+  {
+    type: "image",
+    src: media4,
+    alt: "Dr. Okonkwo speaking at a community event",
+    caption: "Community engagement",
+    fit: "cover",
+  },
+  {
+    type: "image",
+    src: media5,
+    alt: "Dr. Okonkwo participating in a professional panel",
+    caption: "Professional panel",
+    fit: "cover",
+  },
+];
+
+
 ---
 
 <section class="border-y border-slate-200 bg-slate-50">
+  <!-- <a
+    href={`${base}about-dr-okonkwo`}
+    class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+    aria-label="Learn more about Dr. Okonkwo"
+  > -->
   <div class="mx-auto max-w-7xl px-4 py-8">
     <div class="text-center space-y-2">
       <p class="text-xs font-semibold uppercase tracking-wide text-brand-700">
@@ -21,49 +70,131 @@ import media3 from "../assets/media-3.webp"; // Panel / podcast
       </p>
     </div>
 
-    <!-- Image row -->
-    <div class="mt-6 grid grid-cols-3 gap-4 sm:gap-6">
-      <figure class="space-y-2">
-        <div class="overflow-hidden rounded-xl bg-slate-100 ring-1 ring-brand-700/10">
-          <Image
-            src={media1}
-            alt="Dr. Okonkwo speaking during a television interview"
-            class="h-32 w-full object-cover sm:h-40"
-            loading="lazy"
-          />
-        </div>
-        <figcaption class="text-xs text-slate-500">
-          Television interview
-        </figcaption>
-      </figure>
 
-      <figure class="space-y-2">
-        <div class="overflow-hidden rounded-xl bg-slate-100 ring-1 ring-brand-700/10">
-          <Image
-            src={media2}
-            alt="Dr. Okonkwo speaking at a community health event"
-            class="h-32 w-full object-cover sm:h-40"
-            loading="lazy"
-          />
-        </div>
-        <figcaption class="text-xs text-slate-500">
-          Community speaking event
-        </figcaption>
-      </figure>
+    <!-- Media carousel -->
+    <div class="mt-6">
+      <div class="swiper credibility-swiper">
+        <div class="swiper-wrapper">
 
-      <figure class="space-y-2">
-        <div class="overflow-hidden rounded-xl bg-slate-100 ring-1 ring-brand-700/10">
-          <Image
-            src={media3}
-            alt="Dr. Okonkwo participating in a panel or podcast discussion"
-            class="h-32 w-full object-cover sm:h-40"
-            loading="lazy"
-          />
+          {mediaItems.map((item) => (
+            <div class="swiper-slide">
+              <figure class="space-y-2">
+
+                <!-- Media container -->
+                <div
+                  class={`overflow-hidden rounded-xl ring-0 ring-brand-700/10 aspect-video
+                    ${item.fit === "contain"
+                      ? "bg-slate-50 flex items-center justify-center p-3"
+                      : "bg-slate-100"}`}
+                >
+
+                  {item.type === "video" ? (
+                    <video
+                      controls
+                      preload="metadata"
+                      class="h-full w-full object-cover"
+                      poster={item.poster}
+                    >
+                      <source src={typeof item.src === "string" ? item.src : ""} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    <Image
+                      src={item.src}
+                      alt={item.alt}
+                      class={item.fit === "contain"
+                        ? "h-full w-auto object-contain aspect-video"
+                        : "h-full w-full object-cover"}
+                      loading="lazy"
+                    />
+                  )}
+                </div>
+
+                <!-- Caption -->
+                <figcaption class="text-xs text-slate-500">
+                  {item.caption}
+                </figcaption>
+              </figure>
+            </div>
+          ))}
+
         </div>
-        <figcaption class="text-xs text-slate-500">
-          Panel & interviews
-        </figcaption>
-      </figure>
+
+        <!-- Pagination -->
+        <div class="swiper-pagination mt-4"></div>
+
+        <!-- Navigation -->
+        <button
+          type="button"
+          class="swiper-button-prev"
+          aria-label="Previous"
+        ></button>
+        <button
+          type="button"
+          class="swiper-button-next"
+          aria-label="Next"
+        ></button>
+      </div>
+
+
+          
+
+      <!-- <p class="mt-3 text-xs text-slate-500 text-center">Swipe to view highlights.</p> -->
+    </div>
+
+    <script>
+      import Swiper from "swiper";
+      import { Navigation, Pagination, Keyboard, A11y } from "swiper/modules";
+
+      const el = document.querySelector(".credibility-swiper");
+
+      const pauseAllVideos = () => {
+        if (!el) return;
+        el.querySelectorAll("video").forEach((v) => {
+          try { v.pause(); } catch {}
+        });
+      };
+
+      if (el) {
+        const swiper = new Swiper(el, {
+          modules: [Navigation, Pagination, Keyboard, A11y],
+          slidesPerView: 1,
+          spaceBetween: 16,
+          loop: true,
+          speed: 650,
+          keyboard: { enabled: true },
+          pagination: { el: el.querySelector(".swiper-pagination"), clickable: true },
+          navigation: {
+            nextEl: el.querySelector(".swiper-button-next"),
+            prevEl: el.querySelector(".swiper-button-prev"),
+          },
+          a11y: { enabled: true },
+          breakpoints: {
+            640: { slidesPerView: 2, spaceBetween: 18 },
+            1024: { slidesPerView: 3, spaceBetween: 20 },
+          },
+          on: {
+            slideChangeTransitionStart: () => pauseAllVideos(),
+          },
+        });
+
+        // Also pause videos if user clicks outside controls, etc.
+        el.addEventListener("focusout", pauseAllVideos);
+      }
+    </script>
+
+    
+
+    
+
+    <div class="mt-4 text-center">
+      <a
+        href={`${base}about-dr-okonkwo`}
+        class="text-xs font-medium text-brand-700 underline-offset-4 hover:underline
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+      >
+        Learn more about Dr. Okonkwo
+      </a>
     </div>
   </div>
 </section>

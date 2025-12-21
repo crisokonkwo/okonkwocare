@@ -29,7 +29,7 @@ const isActive = (href: string) => {
 <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
     <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-5">
         <!-- Brand -->
-        <a href="/" class="flex items-center gap-3 no-underline">
+        <a href={`${base}`} class="flex items-center gap-3 no-underline">
             <!-- <div
                 class="grid h-10 w-10 place-items-center rounded-xl border border-brand-100 bg-brand-50 text-brand-800"
                 aria-hidden="true">
@@ -116,7 +116,7 @@ const isActive = (href: string) => {
         <!-- Panel -->
         <div class="drawer-panel" role="document">
             <div class="flex items-center justify-between border-b border-slate-200 px-4 py-4">
-                <a href="/" data-nav-link class="flex items-center gap-3 no-underline">
+                <a href={`${base}`} data-nav-link class="flex items-center gap-3 no-underline">
                     <Image
                         src={logo}
                         alt="Okonkwo Care Pediatrics logo"

@@ -6,7 +6,9 @@ import Button from "../components/Button.astro";
 import TestimonialsSection from "../components/TestimonialSection.astro";
 import Card from "../components/Card.astro";
 import { Image } from "astro:assets";
-import doctorImage from "../assets/doctor-okonkwo-consultation.webp";
+import doctorImage from "../assets/doctor-okonkwo.webp";
+import drOkonkwoHeadshot from "../assets/dr-okonkwo-headshot.webp";
+
 // import Badge from "../components/Badge.astro";
 
 const base = import.meta.env.BASE_URL;
@@ -118,6 +120,51 @@ const base = import.meta.env.BASE_URL;
 						</div>
 					</section>
 	</section>
+
+	<!-- <section class="bg-white">
+  		<div class="mx-auto max-w-7xl px-4 pb-10 md:pb-10">
+    		<div class="grid items-center gap-8 rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-soft md:grid-cols-12 md:p-8">
+      
+				Photo
+				<div class="md:col-span-4">
+					<div class="overflow-hidden rounded-2xl bg-slate-100">
+						<Image
+							src={drOkonkwoHeadshot}
+							alt="Dr. Margaret Okonkwo, board-certified pediatrician in Miami, Florida"
+							class="w-full object-cover aspect-[3/4]"
+							loading="lazy"
+							decoding="async"
+						/>
+					</div>
+				</div>
+
+				Copy
+				<div class="md:col-span-8 space-y-4">
+					<p class="text-xs font-semibold uppercase tracking-wide text-brand-700">
+					Meet Your Pediatrician
+					</p>
+
+					<h2 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+					Dr. Margaret Okonkwo
+					</h2>
+
+					<p class="text-sm leading-6 text-slate-700 sm:text-base sm:leading-7">
+					Board-certified pediatrician with over 20 years of experience, offering
+					evidence-informed, whole-child care with unrushed visits and long-term continuity.
+					</p>
+
+					<div class="flex flex-col gap-3 sm:flex-row">
+						<Button href={`${base}about-dr-okonkwo`} variant="primary" size="md" ariaLabel="Learn more about Dr. Okonkwo">
+							About Dr. Okonkwo
+						</Button>
+						<Button href={`${base}contact`} variant="secondary" size="md" ariaLabel="Contact Okonkwo Care Pediatrics">
+							Contact the Clinic
+						</Button>
+					</div>
+      			</div>
+    		</div>
+  		</div>
+	</section> -->
 
 	<CredibilityStrip />
 	
