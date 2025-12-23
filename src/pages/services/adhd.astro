@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+// ADHD page sections
+import ADHDHero from "../../components/adhd/ADHDHero.astro";
+import ADHDIntroGrid from "../../components/adhd/ADHDIntroGrid.astro";
+import ADHDProgramApproach from "../../components/adhd/ADHDProgramApproach.astro";
+import ADHDCTA from "../../components/adhd/ADHDCTA.astro";
+
+const title = "Holistic ADHD Program";
+const description =
+  "A holistic, integrative approach to ADHD treatment in Miami — personalized care, root-cause evaluation, and supportive strategies for families.";
+---
+
+<BaseLayout title={title} description={description}>
+  <main>
+    <ADHDHero />
+    <ADHDIntroGrid />
+    <ADHDProgramApproach />
+    <ADHDCTA />
+  </main>
+</BaseLayout>

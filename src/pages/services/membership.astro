@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+import MembershipHero from "../../components/membership/MembershipHero.astro";
+import MembershipWhoItsFor from "../../components/membership/MembershipWhoItsFor.astro";
+import MembershipPricing from "../../components/membership/MembershipPricing.astro";
+import MembershipADHDOptions from "../../components/membership/MembershipADHDOptions.astro";
+import MembershipSteps from "../../components/membership/MembershipSteps.astro";
+import MembershipFAQ from "../../components/membership/MembershipFAQ.astro";
+import MembershipCTA from "../../components/membership/MembershipCTA.astro";
+
+const title = "Concierge Membership";
+const description =
+  "Concierge pediatric membership in Miami with direct physician access, unrushed visits, and continuity of care. See details, what’s included, and next steps.";
+---
+
+<BaseLayout title={title} description={description}>
+    <main>
+        <MembershipHero />
+        <MembershipWhoItsFor />
+        <MembershipPricing />
+        <MembershipADHDOptions />
+        <MembershipSteps />
+        <!-- <MembershipFAQ /> -->
+        <MembershipCTA />
+    </main>
+</BaseLayout>

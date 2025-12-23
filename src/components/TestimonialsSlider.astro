@@ -17,7 +17,7 @@ const { testimonials } = Astro.props as { testimonials: Testimonial[] };
     <div class="swiper-wrapper">
         {testimonials.map((t) => (
             <div class="swiper-slide">
-                <article class="rounded-2xl bg-gradient-to-br from-white to-slate-50 p-6 h-auto min-h-[280px] flex flex-col shadow-sm border border-slate-100">
+                <article class="rounded-2xl bg-linear-to-br from-white to-slate-50 p-6 h-auto min-h-70 flex flex-col shadow-sm border border-slate-100">
                     <div class="flex items-center justify-between mb-3">
                         <div
                             class="inline-flex items-center gap-1 text-sm text-amber-500"
@@ -33,7 +33,7 @@ const { testimonials } = Astro.props as { testimonials: Testimonial[] };
                         </span>
                     </div>
 
-                    <p class="mt-2 text-sm leading-relaxed text-slate-700 flex-1 overflow-y-auto max-h-[180px]" set:html={'&quot;' + t.quote + '&quot;'}>
+                    <p class="mt-2 text-sm leading-relaxed text-slate-700 flex-1 overflow-y-auto max-h-45" set:html={'&quot;' + t.quote + '&quot;'}>
                     </p>
 
                     <p class="mt-4 text-sm font-semibold text-slate-900 pt-3 border-t border-slate-200">
@@ -48,9 +48,10 @@ const { testimonials } = Astro.props as { testimonials: Testimonial[] };
   <!-- <div class="swiper-button-prev"></div>
   <div class="swiper-button-next"></div> -->
   
-  <!-- Pagination MUST be sibling of wrapper -->
-  <div class="swiper-pagination mt-10"></div>
-
+      <!-- Pagination MUST be sibling of wrapper -->
+      <div class="swiper-pagination mt-10"></div>
+  </div>
+  
   <!-- Init -->
   <script>
     // Defer Swiper initialization until after page load
@@ -89,6 +90,5 @@ const { testimonials } = Astro.props as { testimonials: Testimonial[] };
           },
         });
       }
-    }
-  </script>
-</div>
+  }
+</script>
