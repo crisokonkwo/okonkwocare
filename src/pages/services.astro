@@ -10,33 +10,37 @@ import {
   Leaf,
   Pill
 } from "lucide-astro";
+
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout title="Our Services" description="Explore the comprehensive pediatric services offered at Okonkwo Care Pediatrics, blending evidence-based medicine with holistic care.">
     
      <!-- Services Page -->
     <section class="bg-white">
-        <div class="mx-auto max-w-7xl px-4 py-12">
-            <div class="text-center">
-                <h1 class="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+        <div class="mx-auto max-w-7xl px-4 py-12 md:py-10">
+            <header class="text-center lg:text-center">
+                <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
                     What Okonkwo Care Pediatrics Offers
                 </h1>
-                <p class="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-600">
+                <p class="mx-auto mt-3 max-w-2xl text-sm leading-5 text-slate-600">
                     Concierge-style pediatric care that blends evidence-based medicine with integrative support.
                 </p>
-            </div>
+            </header>
 
             <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
                 {[
                     { 
                         title: "Concierge Membership", 
                         desc: "LoLonger, unlimited, unrushed visits. Direct text messaging and phone calls to the doctor. Telehealth visits.", 
-                        Icon: Stethoscope, 
+                        Icon: Stethoscope,
+                        href: `${base}services/concierge-membership`, 
                     },
                     { 
                         title: "Holistic ADHD Management", 
                         desc: "Functional medicine approach to diagnosing and treating the root causes of ADHD, with limited or no medication.", 
                         Icon: Brain, 
+                        href: `${base}services/adhd`,
                     },
                     { 
                         title: "Chronic Disease Management",
@@ -68,15 +72,50 @@ import {
                         desc: "A healing strategy that aims to promote optimal health by integrating conventional medicine with a holistic approach to nurture comprehensive well-being for children compassionately.", 
                         Icon: Pill, 
                     },
-                ].map(({ title, desc, Icon }) => (
-                    <article class="rounded-2xl border border-slate-200 bg-slate-50 p-5 shadow-soft transition hover:shadow-md">
-                        <div class="items-start gap-3, justify-items-center  flex-col text-center">
+                ].map(({ title, desc, Icon, href }) => (
+                    <article class="group rounded-2xl border border-slate-200 bg-slate-50 p-5 shadow-soft transition hover:shadow-md">
+                        <div class="items-start gap-4">
                             <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 ring-1 ring-brand-700/15">
-                                <Icon class="h-6 w-6 text-brand-700" stroke-width="1.75" />
+                            <Icon
+                                class="h-6 w-6 text-brand-700"
+                                stroke-width="1.75"
+                                aria-hidden="true"
+                            />
                             </div>
+
                             <div>
-                                <h3 class="text-base font-semibold text-slate-900">{title}</h3>
-                                <p class="mt-1 text-sm leading-6 text-slate-600">{desc}</p>
+                            <h3 class="mt-1 text-base font-semibold text-slate-900">
+                                {title}
+                            </h3>
+
+                            <p class="mt-1 text-sm leading-6 text-slate-600">
+                                {desc}
+                            </p>
+
+                            {/* CTA only if href exists */}
+                            {href && (
+                                <a
+                                    href={href}
+                                    class="mt-2 inline-flex items-center gap-1 text-sm font-medium text-brand-700
+                                            transition group-hover:gap-2 hover:underline
+                                            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 rounded"
+                                    >
+                                    Learn more
+                                    <svg
+                                        class="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                        fill-rule="evenodd"
+                                        d="M12.293 3.293a1 1 0 011.414 0l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414-1.414L15.586 11H2a1 1 0 110-2h13.586l-3.293-3.293a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"
+                                        />
+                                    </svg>
+                                </a>
+
+                            )}
                             </div>
                         </div>
                     </article>
@@ -85,7 +124,7 @@ import {
         </div>
     </section>
     
-    <section class="bg-gradient-to-b from-slate-50 to-white border-t border-slate-200">
+    <section class="bg-linear-to-b from-slate-50 to-white border-t border-slate-200">
         <div class="mx-auto max-w-7xl px-4 py-12">
             <div class="grid gap-8 lg:grid-cols-12 lg:items-start">
             {/* Left intro */}

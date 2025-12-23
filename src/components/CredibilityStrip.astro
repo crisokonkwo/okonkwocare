@@ -78,21 +78,21 @@ const mediaItems = [
 
           {mediaItems.map((item) => (
             <div class="swiper-slide">
-              <figure class="space-y-2">
+              <figure class={`space-y-2 ${item.fit === "contain" ? "flex flex-col items-center justify-center h-full" : ""}`}>
 
                 <!-- Media container -->
                 <div
-                  class={`overflow-hidden rounded-xl ring-0 ring-brand-700/10 aspect-video
+                  class={`overflow-hidden rounded-xl ring-brand-700/10 
                     ${item.fit === "contain"
-                      ? "bg-slate-50 flex items-center justify-center p-3"
-                      : "bg-slate-100"}`}
+                      ? "ring-0 bg-slate-100 max-w-45 max-h-50 sm:max-w-45 sm:max-h-57 flex items-center justify-center"
+                      : "aspect-video ring-1 bg-slate-100"}`}
                 >
 
                   {item.type === "video" ? (
                     <video
                       controls
                       preload="metadata"
-                      class="h-full w-full object-cover"
+                      class="h-full w-full object-cover aspect-video"
                       poster={item.poster}
                     >
                       <source src={typeof item.src === "string" ? item.src : ""} type="video/mp4" />
@@ -103,7 +103,7 @@ const mediaItems = [
                       src={item.src}
                       alt={item.alt}
                       class={item.fit === "contain"
-                        ? "h-full w-auto object-contain aspect-video"
+                        ? "h-full w-auto object-contain "
                         : "h-full w-full object-cover"}
                       loading="lazy"
                     />

@@ -145,23 +145,22 @@ const base = import.meta.env.BASE_URL;
           Participation in professional discussions related to pediatric and public health.
           Appearance for informational purposes and does not imply endorsement.
         </p>
-
-        <div class="overflow-hidden rounded-xl border border-slate-200 bg-black shadow-soft w-1/2">
-          <video
-            controls
-            preload="metadata"
-            class="h-32 w-full object-cover sm:h-40 aspect-video"
-            poster={`${base}images/surgeon-general-meeting-poster.webp`}
-          >
-            <source 
-            src={`${base}videos/surgeon-general-meeting.mp4`} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        </div>
-
-        <p class="text-xs text-slate-500">
-          Video: 1 minute 26 seconds.
-        </p>
+        
+        <figure class="snap-start shrink-0 w-[85%] sm:w-[60%] lg:w-[32%] space-y-2">
+          <div class="overflow-hidden rounded-xl bg-slate-100 ring-1 ring-brand-700/10">
+            <video
+              controls
+              preload="metadata"
+              class="h-full w-full object-cover aspect-video"
+              poster={`${base}images/surgeon-general-meeting-poster.webp`}
+            >
+              <source 
+              src={`${base}videos/surgeon-general-meeting.mp4`} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <figcaption class="text-xs text-slate-500">Video: 1 minute 26 seconds.</figcaption>
+        </figure>
       </section>
 
 
