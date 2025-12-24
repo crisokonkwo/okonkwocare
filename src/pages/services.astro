@@ -127,7 +127,7 @@ const base = import.meta.env.BASE_URL;
 
               <!-- Pagination dots - mobile only -->
               <div class="offer-pagination mt-6 flex justify-center gap-3 sm:hidden">
-                {Array.from({ length: 7 }).map((_, i) => (
+                {Array.from({ length: 8 }).map((_, i) => (
                   <button
                     class="dot h-3 w-3 rounded-full bg-slate-300"
                     aria-label={`Go to slide ${i + 1}`}
@@ -149,7 +149,12 @@ const base = import.meta.env.BASE_URL;
             const updateDots = () => {
               const scrollLeft = slider.scrollLeft;
               const slideWidth = (slides[0] as HTMLElement).offsetWidth + 20; // card + gap
-              const index = Math.round(scrollLeft / slideWidth);
+              const maxScroll = slider.scrollWidth - slider.clientWidth;
+              
+              // Handle last slide edge case
+              const index = scrollLeft >= maxScroll - 5 
+                ? dots.length - 1 
+                : Math.round(scrollLeft / slideWidth);
 
               dots.forEach((dot, i) =>
                 dot.classList.toggle("is-active", i === index)
