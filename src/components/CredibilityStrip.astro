@@ -56,7 +56,7 @@ const mediaItems = [
     class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
     aria-label="Learn more about Dr. Okonkwo"
   > -->
-  <div class="mx-auto max-w-7xl px-4 py-8">
+  <div class="mx-auto max-w-7xl px-4 py-10 sm:py-10">
     <div class="text-center space-y-2">
       <p class="text-xs font-semibold uppercase tracking-wide text-brand-700">
         Community & Media
@@ -69,7 +69,6 @@ const mediaItems = [
         health, holistic care, and parent education.
       </p>
     </div>
-
 
     <!-- Media carousel -->
     <div class="mt-6">
@@ -121,25 +120,60 @@ const mediaItems = [
         </div>
 
         <!-- Pagination -->
-        <div class="swiper-pagination mt-4"></div>
+        <div class="swiper-page mt-5 flex items-center justify-center"></div>
 
-        <!-- Navigation -->
-        <button
-          type="button"
-          class="swiper-button-prev"
-          aria-label="Previous"
-        ></button>
-        <button
-          type="button"
-          class="swiper-button-next"
-          aria-label="Next"
-        ></button>
+        <!-- Navigation buttons --> 
+        <div class="mt-4 mb-4 flex items-center justify-end gap-4 pr-5 sm:pr-10">
+          <button
+          type="button" 
+          class="credibility-prev-btn control-btn flex h-10 w-10 items-center justify-center rounded-full 
+                bg-slate-800 hover:bg-slate-700 shadow-md transition-colors duration-200 
+                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 
+                focus-visible:ring-offset-2"
+          aria-label="button to scroll left card">
+            <span class="sr-only">Previous slide</span>
+            <svg
+              class="h-6 w-6 text-slate-100"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2.5"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          <button
+          type="button" 
+          class="credibility-next-btn control-btn flex h-10 w-10 items-center justify-center rounded-full 
+                bg-slate-200 hover:bg-slate-300 shadow-md transition-colors duration-200 
+                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 
+                focus-visible:ring-offset-2"
+          aria-label="button to scroll right card">
+            <span class="sr-only">Next slide</span>
+            <svg
+              class="h-6 w-6 transition-transform text-slate-700"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2.5"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
       </div>
-
-
-          
-
       <!-- <p class="mt-3 text-xs text-slate-500 text-center">Swipe to view highlights.</p> -->
+    </div>
+
+    <div class="mt-4 text-center text-s font-medium text-brand-600">
+      <a
+        href={`${base}about-dr-okonkwo`}
+        class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+      >
+        Learn more about Dr. Okonkwo <span aria-hidden="true">→</span>
+      </a>
+      
     </div>
 
     <script>
@@ -163,10 +197,10 @@ const mediaItems = [
           loop: true,
           speed: 650,
           keyboard: { enabled: true },
-          pagination: { el: el.querySelector(".swiper-pagination"), clickable: true },
+          pagination: { el: el.querySelector(".swiper-page"), clickable: true },
           navigation: {
-            nextEl: el.querySelector(".swiper-button-next"),
-            prevEl: el.querySelector(".swiper-button-prev"),
+            nextEl: el.querySelector(".credibility-next-btn"),
+            prevEl: el.querySelector(".credibility-prev-btn"),
           },
           a11y: { enabled: true },
           breakpoints: {
@@ -184,14 +218,6 @@ const mediaItems = [
     </script>
     
 
-    <div class="mt-4 text-center">
-      <a
-        href={`${base}about-dr-okonkwo`}
-        class="text-xs font-medium text-brand-700 underline-offset-4 hover:underline
-              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
-      >
-        Learn more about Dr. Okonkwo
-      </a>
-    </div>
+    
   </div>
 </section>
