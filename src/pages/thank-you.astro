@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout title="Thank you" description="Message received.">
@@ -9,7 +11,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <p class="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-600">
         We received your message and will respond as soon as available.
       </p>
-      <a href="/" class="mt-6 inline-flex rounded-2xl bg-brand-700 px-5 py-3 text-sm font-semibold text-white no-underline hover:bg-brand-800">
+      <a href={`${base}`} class="mt-6 inline-flex rounded-2xl bg-brand-700 px-5 py-3 text-sm font-semibold text-white no-underline hover:bg-brand-800">
         Return home
       </a>
     </div>
