@@ -209,8 +209,14 @@ const slugify = (s: string) =>
                 );
             })}
 
-            <a
+            <!-- <a
                 href={`tel:${site.phoneTel}`}
+                class="rounded-xl bg-brand-700 px-4 py-2 text-sm font-semibold text-white no-underline hover:bg-brand-100"   
+            >
+                Contact Us
+            </a> -->
+            <a
+                href={`${base}contact`}
                 class="rounded-xl bg-brand-700 px-4 py-2 text-sm font-semibold text-white no-underline hover:bg-brand-100"   
             >
                 Contact Us
@@ -221,7 +227,7 @@ const slugify = (s: string) =>
         <!-- Mobile actions -->
         <div class="flex items-center gap-2 lg:hidden">
             <a
-                href={`tel:${site.phoneTel}`}
+                href={`${base}contact`}
                 class="block w-full rounded-xl border text-center border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-900 no-underline hover:bg-slate-50"
                 aria-label="Contact Us"
             >Contact Us</a>

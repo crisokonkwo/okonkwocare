@@ -10,7 +10,7 @@ export const site = {
     email: "info@okonkwocare.com",
 
     socials: {
-        facebook: "https://www.facebook.com/YOUR_PAGE",
-        instagram: "https://www.instagram.com/YOUR_HANDLE"
+        facebook: "https://www.facebook.com/OkonkwoCarePediatrics",
+        instagram: "https://www.instagram.com/okonkwocarepediatrics/"
     }
 };

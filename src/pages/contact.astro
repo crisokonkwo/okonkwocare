@@ -1,0 +1,308 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Phone, MapPin, MessageCircle, ExternalLink } from "lucide-astro";
+import { site } from "../lib/site";
+
+const base = import.meta.env.BASE_URL;
+
+const directionsUrl =
+  "https://www.google.com/maps/place/Okonkwo+Care+Pediatrics/@25.8279117,-80.1949499,1410m/data=!3m1!1e3!4m21!1m14!4m13!1m5!1m1!1s0x88d9b304a17ee5a7:0xacaf16bbcb558741!2m2!1d-80.1872992!2d25.8276284!1m6!1m2!1s0x88d9b304a17ee5a7:0xacaf16bbcb558741!2s5582+NE+4th+Ct+Suite+9,+Miami,+FL+33137!2m2!1d-80.1872992!2d25.8276284!3m5!1s0x88d9b304a17ee5a7:0xacaf16bbcb558741!8m2!3d25.8276263!4d-80.1873757!16s%2Fg%2F11t6yftsps!5m1!1e1?entry=ttu";
+
+const embedMapSrc =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3591.2706261066533!2d-80.18737569999999!3d25.827626299999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b304a17ee5a7%3A0xacaf16bbcb558741!2sOkonkwo%20Care%20Pediatrics!5e0!3m2!1sen!2sus!4v1761570098563!5m2!1sen!2sus";
+
+// If you have texting set up, use sms:
+const smsHref = site.phoneTel ? `sms:${site.phoneTel}` : "#";
+---
+
+<BaseLayout
+  title="Contact"
+  description="Contact Okonkwo Care Pediatrics. Call, text, or send a message through our secure form."
+>
+  {/* Hero */}
+  <section class="bg-linear-to-b from-slate-50 to-white border-b border-slate-200">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:py-14 text-center">
+      <h1 class="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">Let’s Connect</h1>
+      <p class="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-600">
+        Send a message below, or reach us quickly by phone. We’ll respond as soon as available.
+      </p>
+
+      <div class="mt-6 grid gap-3 sm:grid-cols-3">
+        <a
+          href={`tel:${site.phoneTel}`}
+          class="inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-700 px-4 py-3 text-sm font-semibold text-white no-underline
+                 hover:bg-brand-800 focus-visible:ring-2 focus-visible:ring-brand-600"
+        >
+          <Phone class="h-4 w-4" aria-hidden="true" />
+          Call {site.phoneDisplay}
+        </a>
+
+        <a
+          href={smsHref}
+          class="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 no-underline
+                 hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-brand-600"
+        >
+          <MessageCircle class="h-4 w-4 text-brand-700" aria-hidden="true" />
+          Text us
+        </a>
+
+        <a
+          href={directionsUrl}
+          target="_blank"
+          rel="noreferrer"
+          class="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 no-underline
+                 hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-brand-600"
+        >
+          <MapPin class="h-4 w-4 text-brand-700" aria-hidden="true" />
+          Directions
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {/* Main */}
+  <section class="bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-10 md:py-10">
+      <div class="grid gap-8 lg:grid-cols-12 lg:items-start">
+
+        {/* LEFT: Form (primary) */}
+        <div class="lg:col-span-7">
+          <div class="rounded-3xl border border-slate-200 bg-white shadow-soft">
+            <div class="border-b border-slate-200 px-6 py-5">
+              <h2 class="text-base font-semibold text-slate-900">How can we help?</h2>
+              <p class="mt-1 text-sm text-slate-600">
+                Please don’t include sensitive medical details. If this is a medical emergency, please dial 911.
+              </p>
+            </div>
+
+            {/*  */}
+            <div class="p-4 md:p-6">
+              <form
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field"
+                data-netlify-recaptcha="true"
+                action="/thank-you/"
+                class="px-6 py-6 space-y-5"
+              >
+                {/* Required hidden input for Netlify */}
+                <input type="hidden" name="form-name" value="contact" />
+
+                {/* Honeypot (hidden) */}
+                <p class="hidden">
+                  <label>
+                    Don’t fill this out: <input name="bot-field" />
+                  </label>
+                </p>
+
+                <div class="grid gap-5 sm:grid-cols-2">
+                    <div>
+                      <label for="first-name" class="block text-sm font-semibold text-slate-900"> First name <span class="text-rose-600">*</span></label>
+                      <input
+                        id="first-name"
+                        name="first-name"
+                        type="text"
+                        autocomplete="first-name"
+                        required
+                        class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-soft
+                            focus:border-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-600/30"
+                      />
+                    </div>
+                    <div>
+                      <label for="last-name" class="block text-sm font-semibold text-slate-900"> Last name <span class="text-rose-600">*</span></label>
+                      <input
+                        id="last-name"
+                        name="last-name"
+                        type="text"
+                        autocomplete="last-name"
+                        required
+                        class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-soft
+                            focus:border-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-600/30"
+                      />
+                    </div>
+                    <div>
+                      <label for="phone" class="block text-sm font-semibold text-slate-900"> Phone <span class="text-rose-600">*</span></label>
+                      <input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        autocomplete="tel"
+                        required
+                        class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-soft
+                            focus:border-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-600/30"
+                      />
+                    </div>
+                    <div>
+                      <label for="email" class="block text-sm font-semibold text-slate-900"> Email <span class="text-rose-600">*</span></label>
+                      <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        autocomplete="email"
+                        required
+                        class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-soft
+                            focus:border-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-600/30"
+                      />
+                    </div>
+                </div>
+
+                <div class="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label for="topic" class="block text-sm font-semibold text-slate-900"> I’m reaching out about <span class="text-rose-600">*</span></label>
+                    <select
+                        id="topic"
+                        name="topic"
+                        required
+                        class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-soft
+                            focus:border-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-600/30"
+                    >
+                        <option value="" selected disabled>Select one…</option>
+                        <option>Concierge Membership</option>
+                        <option>Holistic ADHD Program</option>
+                        <option>New patient question</option>
+                        <option>Existing patient question</option>
+                        <option>Media / speaking request</option>
+                        <option>Other</option>
+                    </select>
+                  </div>
+                  <div>
+                      <label for="children" class="block text-sm font-semibold text-slate-900"> Number of children  <span class="text-rose-600">*</span></label>
+                      <input
+                        id="children"
+                        name="children"
+                        type="number"
+                        autocomplete="off"
+                        min="1"
+                        value="1"
+                        required
+                        class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-soft
+                            focus:border-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-600/30"
+                      />
+                    </div>
+                </div>
+
+                <div>
+                  <label for="message" class="block text-sm font-semibold text-slate-900">Message</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="6"
+                    required
+                    class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-soft
+                        focus:border-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-600/30"
+                    placeholder="How can we help?"
+                ></textarea>
+                  <p class="mt-2 text-xs text-slate-500">
+                    Please avoid sharing sensitive medical details online.
+                  </p>
+                </div>
+
+                {/* Acknowledgement (required) */}
+                <div>
+                <fieldset class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                  <legend class="text-sm font-semibold text-slate-900">
+                    Acknowledgement <span class="text-rose-600">*</span>
+                  </legend>
+
+                  <div class="mt-3 flex items-start gap-3">
+                    <input
+                    id="ack-membership"
+                    name="acknowledgement"
+                    type="checkbox"
+                    value="I understand that there is a $299 monthly membership fee and insurance may be used for vaccines, labs, and other services but may not be used for the membership fee."
+                    required
+                    class="mt-1 h-4 w-4 rounded border-slate-300 text-brand-700 focus:ring-brand-600"
+                    />
+                    <label for="ack-membership" class="text-sm leading-6 text-slate-700">
+                    I understand that there is a <span class="font-semibold">$299 monthly membership fee</span> and insurance may be used for vaccines, labs, and other services but may not be used for the membership fee.
+                    </label>
+                  </div>
+
+                  <p class="mt-2 text-xs text-slate-500">
+                    This helps ensure we’re aligned before we follow up.
+                  </p>
+                </fieldset>
+                </div>
+
+                <div data-netlify-recaptcha="true" class="mt-2"></div>
+
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  
+                  <button
+                    type="submit"
+                    class="inline-flex items-center justify-center rounded-2xl bg-brand-700 px-5 py-3 text-sm font-semibold text-white
+                            hover:bg-brand-800 focus-visible:ring-2 focus-visible:ring-brand-600"
+                    >
+                    Send message
+                  </button>
+
+                  <p class="text-xs text-slate-500">
+                    Typical response time: same day / next business day.
+                  </p>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+
+        {/* RIGHT: Location (secondary) */}
+        <aside class="lg:col-span-5 space-y-6">
+          <div class="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-soft">
+            <h2 class="text-base font-semibold text-slate-900">Our location</h2>
+            <p class="mt-2 text-sm leading-6 text-slate-600">
+              Serving families throughout Miami-Dade and Broward County.
+              Boca Raton location coming soon.
+            </p>
+
+            <div class="mt-4 rounded-2xl border border-slate-200 bg-white p-4">
+              <div class="flex items-start gap-3">
+                <div class="mt-0.5 flex h-9 w-9 items-center justify-center rounded-xl bg-brand-50 ring-1 ring-brand-700/15">
+                  <MapPin class="h-5 w-5 text-brand-700" stroke-width="1.75" aria-hidden="true" />
+                </div>
+                <div class="text-sm text-slate-700">
+                  <div class="font-semibold text-slate-900">Okonkwo Care Pediatrics</div>
+                  <div class="mt-1 leading-6">
+                      <div>{site.addressLine1}</div>
+                      <div>{site.addressLine2}</div>
+                  </div>
+                </div>
+              </div>
+
+              <a
+                href={directionsUrl}
+                target="_blank"
+                rel="noreferrer"
+                class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand-700 no-underline hover:underline
+                       focus-visible:ring-2 focus-visible:ring-brand-600 rounded"
+              >
+                Get directions
+                <ExternalLink class="h-4 w-4" aria-hidden="true" />
+              </a>
+            </div>
+          </div>
+
+          {/* Map (smaller, calmer) */}
+          <div class="rounded-3xl border border-slate-200 bg-white shadow-soft overflow-hidden">
+            <div class="border-b border-slate-200 px-6 py-4">
+              <h3 class="text-sm font-semibold text-slate-900">Map</h3>
+              <p class="mt-1 text-xs text-slate-600">Tap “Directions” for your preferred navigation app.</p>
+            </div>
+            <div class="aspect-4/3">
+              <iframe
+                src={embedMapSrc}
+                class="h-full w-full"
+                style="border:0;"
+                allowfullscreen
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Map to Okonkwo Care Pediatrics"
+              ></iframe>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
