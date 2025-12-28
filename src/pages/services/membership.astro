@@ -6,6 +6,7 @@ import MembershipWhoItsFor from "../../components/membership/MembershipWhoItsFor
 import MembershipPricing from "../../components/membership/MembershipPricing.astro";
 import MembershipADHDOptions from "../../components/membership/MembershipADHDOptions.astro";
 import MembershipSteps from "../../components/membership/MembershipSteps.astro";
+import FourStepProcess from "../../components/FourStepProcess.astro";
 import MembershipFAQ from "../../components/membership/MembershipFAQ.astro";
 import MembershipCTA from "../../components/membership/MembershipCTA.astro";
 
@@ -20,7 +21,17 @@ const description =
         <MembershipWhoItsFor />
         <MembershipPricing />
         <MembershipADHDOptions />
-        <MembershipSteps />
+        <!-- <MembershipSteps /> -->
+        <FourStepProcess
+          title="How membership works"
+          intro="A straightforward enrollment process designed to keep care calm and accessible."
+          steps={[
+            { n: "01", title: "Consult", desc: "Discuss your child’s needs and ensure fit." },
+            { n: "02", title: "Enroll", desc: "Choose the membership option that matches your goals." },
+            { n: "03", title: "Care plan", desc: "We create a personalized plan with follow-ups." },
+            { n: "04", title: "Ongoing support", desc: "Direct access and continuity as your child grows." },
+          ]}
+        />
         <!-- <MembershipFAQ /> -->
         <MembershipCTA />
     </main>

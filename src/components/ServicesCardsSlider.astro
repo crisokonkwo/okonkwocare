@@ -1,0 +1,212 @@
+---
+import { ArrowRight } from "lucide-astro";
+import type { AstroComponentFactory } from "astro/runtime/server/index.js";
+
+type Card = {
+  title: string;
+  desc: string;
+  Icon: AstroComponentFactory;
+  href?: string;
+};
+
+const {
+  id = "services-slider",
+  heading,
+  subheading,
+  cards,
+  showDots = true,
+  dotsCount, // optional override
+} = Astro.props as {
+  id?: string;
+  heading?: string;
+  subheading?: string;
+  cards: Card[];
+  showDots?: boolean;
+  dotsCount?: number;
+};
+
+// const base = import.meta.env.BASE_URL;
+
+const dotTotal = dotsCount ?? cards.length;
+
+// If you want dots to reflect “pages” rather than cards, pass dotsCount={4}
+---
+
+<section class="bg-white">
+  <div class="mx-auto max-w-7xl px-4 py-10 md:py-10">
+    {(heading || subheading) && (
+      <header class="text-center">
+        {heading && (
+          <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+            {heading}
+          </h2>
+        )}
+        {subheading && (
+          <p class="mx-auto mt-3 max-w-2xl text-sm leading-5 text-slate-600">
+            {subheading}
+          </p>
+        )}
+      </header>
+    )}
+
+    <div class={heading || subheading ? "mt-10" : ""}>
+      <div
+        data-offer-viewport={id}
+        class="overflow-x-auto sm:overflow-visible offer-hide-scrollbar
+                scroll-smooth sm:scroll-auto
+                snap-x snap-mandatory sm:snap-none
+                scroll-px-4"
+      >
+        <div class="flex gap-5 sm:grid sm:grid-cols-2 lg:grid-cols-4 min-w-full sm:min-w-0">
+          {cards.map(({ title, desc, Icon, href }) => (
+            <article
+              class:list={[
+                "group shrink-0 w-80 sm:w-auto snap-start rounded-2xl border border-slate-200 bg-slate-50 p-5 shadow-soft transition hover:shadow-md",
+                // subtle cue only when href exists (card has a link somewhere)
+                href ? "hover:border-brand-200" : "",
+              ]}
+            >
+              <div class="space-y-4">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 ring-1 ring-brand-700/15">
+                  <Icon
+                    class="h-6 w-6 text-brand-700"
+                    stroke-width="1.75"
+                    aria-hidden="true"
+                  />
+                </div>
+
+                <div>
+                  <h3 class="text-base font-semibold text-slate-900">
+                    {title}
+                  </h3>
+
+                  <p class="mt-1 text-sm leading-6 text-slate-600">
+                    {desc}
+                  </p>
+
+                  {/* CTA only if href exists (and ONLY CTA is clickable) */}
+                  {href && (
+                    <a
+                      href={href}
+                      class="mt-2 inline-flex items-center gap-1 text-sm font-medium text-brand-700
+                             transition group-hover:gap-2 hover:underline
+                             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 rounded"
+                    >
+                      Learn more
+                      <ArrowRight
+                        class="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                        stroke-width="1.75"
+                        aria-hidden="true"
+                      />
+                    </a>
+                  )}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      {/* Pagination dots - mobile only */}
+      {showDots && (
+        <div
+          data-offer-pagination={id}
+          class="offer-pagination mt-6 flex justify-center gap-3 sm:hidden"
+        >
+          {Array.from({ length: dotTotal }).map((_, i) => (
+            <button
+              class="dot h-3 w-3 rounded-full bg-slate-300"
+              aria-label={`Go to slide ${i + 1}`}
+              type="button"
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+
+  {/* Scoped behavior per component instance */}
+  <script define:vars={{ id }}>
+    const viewport = document.querySelector(`[data-offer-viewport="${id}"]`);
+    const dots = Array.from(
+        document.querySelectorAll(`[data-offer-pagination="${id}"] .dot`)
+    );
+
+    if (viewport && dots.length) {
+        const scroller = viewport;
+
+        const getCards = () => {
+        const row = scroller.firstElementChild;
+        if (!row) return [];
+        return Array.from(row.children).filter((el) => el instanceof HTMLElement);
+        };
+
+        // Find which card's LEFT edge is closest to the scroller's LEFT "snap line"
+        const nearestIndex = () => {
+        const cards = getCards();
+        if (!cards.length) return 0;
+
+        const scrollerRect = scroller.getBoundingClientRect();
+
+        // If you're using scroll-px-4 (16px), the snap line effectively starts after padding.
+        // We'll approximate that with computed scroll-padding-left when available.
+        const styles = window.getComputedStyle(scroller);
+        const scrollPadLeft = parseFloat(styles.scrollPaddingLeft || "0") || 0;
+
+        const snapLineX = scrollerRect.left + scrollPadLeft;
+
+        let bestIdx = 0;
+        let bestDist = Infinity;
+
+        cards.forEach((card, idx) => {
+            const r = card.getBoundingClientRect();
+            const dist = Math.abs(r.left - snapLineX);
+            if (dist < bestDist) {
+            bestDist = dist;
+            bestIdx = idx;
+            }
+        });
+
+        // Clamp to dots length in case you intentionally show fewer dots than cards
+        return Math.min(bestIdx, dots.length - 1);
+        };
+
+        const setActiveDot = (idx) => {
+        dots.forEach((dot, i) => dot.classList.toggle("is-active", i === idx));
+        };
+
+        const updateDots = () => setActiveDot(nearestIndex());
+
+        // Init
+        updateDots();
+
+        // Update on scroll (throttled by rAF)
+        let ticking = false;
+        scroller.addEventListener("scroll", () => {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(() => {
+            updateDots();
+            ticking = false;
+        });
+        });
+
+        // Update on resize (layout changes can move bounding boxes)
+        window.addEventListener("resize", updateDots);
+
+        // Dot click: scroll the corresponding card into view
+        dots.forEach((dot, i) => {
+        dot.addEventListener("click", () => {
+            const cards = getCards();
+            const target = cards[i];
+            if (!target) return;
+            target.scrollIntoView({
+            behavior: "smooth",
+            inline: "start",
+            block: "nearest",
+            });
+        });
+        });
+    }
+  </script>
+</section>

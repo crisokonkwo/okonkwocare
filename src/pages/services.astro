@@ -1,4 +1,6 @@
 ---
+import FourStepProcess from "../components/FourStepProcess.astro";
+import ServicesCardsSlider from "../components/ServicesCardsSlider.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import {
   Stethoscope,
@@ -12,213 +14,65 @@ import {
 } from "lucide-astro";
 
 const base = import.meta.env.BASE_URL;
+
+const cards = [
+  {
+    title: "Concierge Membership",
+    desc: "Longer, unlimited, unrushed visits. Direct text messaging and phone calls to the doctor. Telehealth visits.",
+    Icon: Stethoscope,
+    href: `${base}services/membership`,
+  },
+  {
+    title: "Holistic ADHD Management",
+    desc: "Functional medicine approach to diagnosing and treating the root causes of ADHD, with limited or no medication.",
+    Icon: Brain,
+    href: `${base}services/adhd`,
+  },
+  {
+    title: "Chronic Disease Management",
+    desc: "Provides individualized plans, close monitoring, and specialist communications to sustain long term health in children.",
+    Icon: HeartPulse,
+  },
+  {
+    title: "Preventive Pediatric Care",
+    desc: "Focuses on routine check-ups and empathetic guidance to promote lifelong health and emotional well-being.",
+    Icon: ShieldCheck,
+  },
+  {
+    title: "Acute Illness Care",
+    desc: "Care for common childhood ailments, prioritizing comfort, holistic options, and empathetic family support.",
+    Icon: Thermometer,
+  },
+  {
+    title: "Developmental Screenings",
+    desc: "Monitors milestones with compassionate evaluations to identify early needs and nurture your child's healthy growth and development.",
+    Icon: ClipboardList,
+  },
+  {
+    title: "Nutrition & Wellness Counseling",
+    desc: "Guides families with empathetic advice on nutrition and lifestyles to boost children's vitality, emotional health, and daily wellness.",
+    Icon: Leaf,
+  },
+  {
+    title: "Holistic Health Support",
+    desc: "Integrates conventional medicine with holistic approaches to nurture comprehensive well-being for children compassionately.",
+    Icon: Pill,
+  },
+];
 ---
 
 <BaseLayout title="Our Services" description="Explore the comprehensive pediatric services offered at Okonkwo Care Pediatrics, blending evidence-based medicine with holistic care.">
     
      <!-- Services Page -->
-    <section class="bg-white">
-        <div class="mx-auto max-w-7xl px-4 py-10 md:py-10">
-            <header class="text-center lg:text-center">
-                <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-                    What Okonkwo Care Pediatrics Offers
-                </h1>
-                <p class="mx-auto mt-3 max-w-2xl text-sm leading-5 text-slate-600">
-                    Concierge-style pediatric care that blends evidence-based medicine with integrative support.
-                </p>
-            </header>
-
-            <div class="mt-10">
-              <div class="overflow-x-auto sm:overflow-visible offer-hide-scrollbar">
-                <div class="flex gap-5 sm:grid sm:grid-cols-2 lg:grid-cols-4 min-w-full sm:min-w-0">
-                    {[
-                        { 
-                            title: "Concierge Membership", 
-                            desc: "Longer, unlimited, unrushed visits. Direct text messaging and phone calls to the doctor. Telehealth visits.", 
-                            Icon: Stethoscope,
-                            href: `${base}services/membership`, 
-                        },
-                        { 
-                            title: "Holistic ADHD Management", 
-                            desc: "Functional medicine approach to diagnosing and treating the root causes of ADHD, with limited or no medication.", 
-                            Icon: Brain, 
-                            href: `${base}services/adhd`,
-                        },
-                        { 
-                            title: "Chronic Disease Management",
-                            desc: "Provides individualized plans, close monitoring, and specialist communications to sustain long term health in children.", 
-                            Icon: HeartPulse, 
-                        },
-                        { 
-                            title: "Preventive Pediatric Care", 
-                            desc: "Focuses on routine check-ups and empathetic guidance to promote lifelong health and emotional well-being.", 
-                            Icon: ShieldCheck, 
-                        },
-                        { 
-                            title: "Acute Illness Care", 
-                            desc: "Care for common childhood ailments, prioritizing comfort, holistic options, and empathetic family support.", 
-                            Icon: Thermometer, 
-                        },
-                        { 
-                            title: "Developmental Screenings", 
-                            desc: "Monitors milestones with compassionate evaluations to identify early needs and nurture your child's healthy growth and development.", 
-                            Icon: ClipboardList, 
-                        },
-                        { 
-                            title: "Nutrition & Wellness Counseling", 
-                            desc: "Guides families with empathetic advice on nutrition and lifestyles to boost children's vitality, emotional health, and daily wellness.", 
-                            Icon: Leaf, 
-                        },
-                        { 
-                            title: "Holistic Health Support", 
-                            desc: "A healing strategy that aims to promote optimal health by integrating conventional medicine with a holistic approach to nurture comprehensive well-being for children compassionately.", 
-                            Icon: Pill, 
-                        },
-                    ].map(({ title, desc, Icon, href }) => (
-                        <article class="group shrink-0 w-80 sm:w-auto rounded-2xl border border-slate-200 bg-slate-50 p-5 shadow-soft transition hover:shadow-md">
-                            <div class="space-y-4">
-                                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 ring-1 ring-brand-700/15">
-                                <Icon
-                                    class="h-6 w-6 text-brand-700"
-                                    stroke-width="1.75"
-                                    aria-hidden="true"
-                                />
-                                </div>
-
-                                <div>
-                                <h3 class="text-base font-semibold text-slate-900">
-                                    {title}
-                                </h3>
-
-                                <p class="mt-1 text-sm leading-6 text-slate-600">
-                                    {desc}
-                                </p>
-
-                                {/* CTA only if href exists */}
-                                {href && (
-                                    <a
-                                        href={href}
-                                        class="mt-2 inline-flex items-center gap-1 text-sm font-medium text-brand-700
-                                                transition group-hover:gap-2 hover:underline
-                                                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 rounded"
-                                        >
-                                        Learn more
-                                        <svg
-                                            class="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-                                            viewBox="0 0 20 20"
-                                            fill="currentColor"
-                                            aria-hidden="true"
-                                        >
-                                            <path
-                                            fill-rule="evenodd"
-                                            d="M12.293 3.293a1 1 0 011.414 0l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414-1.414L15.586 11H2a1 1 0 110-2h13.586l-3.293-3.293a1 1 0 010-1.414z"
-                                            clip-rule="evenodd"
-                                            />
-                                        </svg>
-                                    </a>
-
-                                )}
-                                </div>
-                            </div>
-                        </article>
-                    ))}
-                </div>
-              </div>
-
-              <!-- Pagination dots - mobile only -->
-              <div class="offer-pagination mt-6 flex justify-center gap-3 sm:hidden">
-                {Array.from({ length: 8 }).map((_, i) => (
-                  <button
-                    class="dot h-3 w-3 rounded-full bg-slate-300"
-                    aria-label={`Go to slide ${i + 1}`}
-                  />
-                ))}
-              </div>
-            </div>
-        </div>
-
-        <script>
-          const slider = document.querySelector(".offer-hide-scrollbar");
-          const dots = Array.from(
-            document.querySelectorAll(".offer-pagination .dot")
-          );
-
-          if (slider && dots.length) {
-            const slides = slider.children;
-
-            const updateDots = () => {
-              const scrollLeft = slider.scrollLeft;
-              const slideWidth = (slides[0] as HTMLElement).offsetWidth + 20; // card + gap
-              const maxScroll = slider.scrollWidth - slider.clientWidth;
-              
-              // Handle last slide edge case
-              const index = scrollLeft >= maxScroll - 5 
-                ? dots.length - 1 
-                : Math.round(scrollLeft / slideWidth);
-
-              dots.forEach((dot, i) =>
-                dot.classList.toggle("is-active", i === index)
-              );
-            };
-
-            slider.addEventListener("scroll", () => {
-              window.requestAnimationFrame(updateDots);
-            });
-
-            dots.forEach((dot, i) => {
-              dot.addEventListener("click", () => {
-                const slideWidth = (slides[0] as HTMLElement).offsetWidth + 20; // card + gap
-                slider.scrollTo({
-                  left: i * slideWidth,
-                  behavior: "smooth",
-                });
-              });
-            });
-          }
-        </script>
-    </section>
+    <ServicesCardsSlider
+        id="services"
+        heading="What Okonkwo Care Pediatrics Offers"
+        subheading="Concierge-style pediatric care that blends evidence-based medicine with integrative support."
+        cards={cards}
+        showDots={true}
+    />
     
-    <section class="bg-linear-to-b from-slate-50 to-white border-t border-slate-200">
-        <div class="mx-auto max-w-7xl px-4 py-12">
-            <div class="grid gap-8 lg:grid-cols-12 lg:items-start">
-            {/* Left intro */}
-            <div class="lg:col-span-4">
-                <h2 class="text-2xl font-bold tracking-tight text-slate-900">
-                Our 4-step process
-                </h2>
-                <p class="mt-3 text-sm leading-6 text-slate-600">
-                A concierge-style pediatric experience designed for unrushed visits, direct access, and a whole-child approach.
-                We emphasizes integrative care, blending traditional and holistic approaches to nurture your child's physical, emotional, and social well-being. 
-                Follow these four steps to join our caring community and begin your family's journey toward holistic pediatric care:
-                </p>
-            </div>
-
-            {/* Steps */}
-            <div class="lg:col-span-8">
-                <ol class="grid gap-4 sm:grid-cols-2">
-                {[
-                    { n: "01", title: "Family health goals", desc: "Schedule a meet-and-greet to discuss your child's needs and priorities." },
-                    { n: "02", title: "Enroll family", desc: "Choose a membership option that fits your child's age and needs." },
-                    { n: "03", title: "Access care", desc: "Get direct access via unrushed visits, calls, emails, and telehealth." },
-                    { n: "04", title: "Begin journey", desc: "Ongoing guidance and integrative support tailored to your child's unique needs." },
-                ].map((step) => (
-                    <li class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
-                    <div class="flex items-start gap-3">
-                        <div class="flex h-10 w-10 items-center justify-center shrink-0 rounded-xl bg-brand-700 text-white">
-                        <span class="text-sm font-bold">{step.n}</span>
-                        </div>
-                        <div>
-                        <h3 class="text-base font-semibold text-slate-900">{step.title}</h3>
-                        <p class="mt-1 text-sm leading-6 text-slate-600">{step.desc}</p>
-                        </div>
-                    </div>
-                    </li>
-                ))}
-                </ol>
-            </div>
-            </div>
-        </div>
-    </section>
+    <FourStepProcess />
 
 </BaseLayout>
 

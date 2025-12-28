@@ -1,10 +1,12 @@
 ---
 import { Image } from "astro:assets";
+import { ArrowRight } from "lucide-astro";
 
-import media2 from "../assets/media2.webp";
+// import media2 from "../assets/media2.webp";
 import media3 from "../assets/nasdaq-billboard.webp";
 import media4 from "../assets/Boston 2025-3786.jpg";
 import media5 from "../assets/Boston 2025-3808.jpg";
+import media6 from "../assets/NYCityBar.jpg";
 
 const base = import.meta.env.BASE_URL;
 
@@ -17,19 +19,11 @@ const mediaItems = [
     fit: "cover",
   },
   {
-    type: "image",
-    src: media2,
-    alt: "Television interview with Dr. Okonkwo",
-    caption: "Television interview",
+    type: "video",
+    src: `${base}videos/astronaut_interview.mp4`,
+    poster: `${base}images/media2-poster.webp`,
+    caption: "Video: Interview with astronaut Mike Hopkins",
     fit: "cover",
-  },
-  {
-    type: "image",
-    src: media3,
-    alt: "Nasdaq billboard featuring Dr. Okonkwo",
-    caption: "Nasdaq billboard",
-    fit: "contain", // tall image
-    expandable: true,
   },
   {
     type: "image",
@@ -45,8 +39,21 @@ const mediaItems = [
     caption: "Professional panel",
     fit: "cover",
   },
+  {
+    type: "image",
+    src: media6,
+    alt: "Dr. Okonkwo participating in a professional panel at NY City Bar",
+    caption: "Professional panel at the NY City Bar",
+    fit: "cover",
+  },
+  {
+    type: "image",
+    src: media3,
+    alt: "Dr. Okonkwo featured on Nasdaq billboard in Times Square, New York City",
+    caption: "Featured on Nasdaq billboard in Times Square, NYC",
+    fit: "contain",
+  },
 ];
-
 
 ---
 
@@ -99,12 +106,13 @@ const mediaItems = [
                     </video>
                   ) : (
                     <Image
-                      src={item.src}
-                      alt={item.alt}
+                      src={item.src as ImageMetadata}
+                      alt={item.alt ?? ""}
                       class={item.fit === "contain"
                         ? "h-full w-auto object-contain "
                         : "h-full w-full object-cover"}
                       loading="lazy"
+                      inferSize
                     />
                   )}
                 </div>
@@ -166,21 +174,25 @@ const mediaItems = [
       <!-- <p class="mt-3 text-xs text-slate-500 text-center">Swipe to view highlights.</p> -->
     </div>
 
-    <div class="mt-4 text-center text-s font-medium text-brand-600">
+    <div class="mt-4 text-center text-xs font-medium text-brand-600">
       <a
         href={`${base}about-dr-okonkwo`}
         class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
       >
-        Learn more about Dr. Okonkwo <span aria-hidden="true">→</span>
+        Learn more about Dr. Okonkwo 
+        <ArrowRight
+          class="inline h-4 w-4 transition-transform group-hover:translate-x-0.5"
+          stroke-width="1.75"
+          aria-hidden="true" 
+        />
       </a>
-      
     </div>
 
     <script>
       import Swiper from "swiper";
       import { Navigation, Pagination, Keyboard, A11y } from "swiper/modules";
 
-      const el = document.querySelector(".credibility-swiper");
+      const el = document.querySelector(".credibility-swiper") as HTMLElement | null;
 
       const pauseAllVideos = () => {
         if (!el) return;
@@ -197,10 +209,10 @@ const mediaItems = [
           loop: true,
           speed: 650,
           keyboard: { enabled: true },
-          pagination: { el: el.querySelector(".swiper-page"), clickable: true },
+          pagination: { el: el.querySelector(".swiper-page") as HTMLElement | null, clickable: true },
           navigation: {
-            nextEl: el.querySelector(".credibility-next-btn"),
-            prevEl: el.querySelector(".credibility-prev-btn"),
+            nextEl: el.querySelector(".credibility-next-btn") as HTMLElement | null,
+            prevEl: el.querySelector(".credibility-prev-btn") as HTMLElement | null,
           },
           a11y: { enabled: true },
           breakpoints: {
