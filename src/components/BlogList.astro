@@ -194,12 +194,15 @@ const base = import.meta.env.BASE_URL;
                             {post.data.description}
                             </p>
 
-                            <div class="mt-4 flex items-center gap-2 text-xs text-slate-500">
+                            <div class="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-xs text-slate-500">
+                            <div class="flex items-center flex-wrap gap-x-1.5 gap-y-1">
                             <span>{post.data.author}</span>
                             <span class="text-slate-400" aria-hidden="true">•</span>
                             <time datetime={new Date(post.data.pubDate).toISOString()}>{pub}</time>
-                            <span class="text-slate-400" aria-hidden="true">•</span> {rt.minutes} min read
-                            <span class="text-slate-300" aria-hidden="true">•</span>
+                            <span class="text-slate-400" aria-hidden="true">•</span> 
+                            <span>{rt.minutes} min read</span>
+                            </div>
+                            
                             <span class="text-brand-700 font-medium group-hover:underline inline-flex items-center gap-1">
                                 Read
                                 <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -289,11 +292,12 @@ const base = import.meta.env.BASE_URL;
                         {post.data.description}
                     </p>
 
-                    <div class="mt-4 flex items-center gap-2 text-xs text-slate-500">
-                        {/* <div class="flex gap-x-1 items-center"> */}
+                    <div class="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-xs text-slate-500">
+                        <div class="flex items-center flex-wrap gap-x-1.5 gap-y-1">
                             <span>{post.data.author}</span><span class="text-slate-400" aria-hidden="true">•</span>
                             <time datetime={new Date(post.data.pubDate).toISOString()}>{pub}</time>
-                            <span class="text-slate-400" aria-hidden="true">•</span> {rt.minutes} min read
+                            <span class="text-slate-400" aria-hidden="true">•</span> 
+                            <span>{rt.minutes} min read</span>
 
                             {upd && (
                             <>
@@ -303,11 +307,9 @@ const base = import.meta.env.BASE_URL;
                             </span>
                             </>
                             )}
+                        </div>
 
-                            
-                        {/* </div> */}
-
-                        <span class="inline-flex items-center gap-1 text-brand-700 font-medium ml-auto group-hover:underline">
+                        <span class="inline-flex items-center gap-1 text-brand-700 font-medium group-hover:underline">
                         Read
                         <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                             <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round" />
