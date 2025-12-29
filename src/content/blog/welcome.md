@@ -4,7 +4,7 @@ description: "What to expect from our evidence-informed, integrative pediatric g
 author: "Dr. Margaret Okonkwo"
 pubDate: 2025-12-28
 category: "ADHD"
-heroImage: "/okonkwocare/src/assets/blog/welcome.webp"
+heroImage: "/public/images/blog/welcome.webp"
 heroImageAlt: "Dr. Okonkwo with a family in clinic"
 featured: false
 draft: false
