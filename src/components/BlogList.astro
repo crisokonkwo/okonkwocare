@@ -1,0 +1,471 @@
+---
+import type { CollectionEntry, render } from "astro:content";
+import { Image } from "astro:assets";
+
+import { readingTimeFromText } from "../lib/reading-time";
+
+type BlogPost = CollectionEntry<"blog">;
+
+type Props = {
+  posts: BlogPost[];
+  featuredPosts?: BlogPost[];
+  title?: string;
+  subtitle?: string;
+  showSearch?: boolean;
+  showCategoryChips?: boolean;
+  initialCategory?: string; // e.g. "ADHD"
+};
+
+// const { posts } = Astro.props;
+
+// const {
+//   posts,
+//   title = "Insights & Guidance for Parents",
+//   subtitle = "Evidence-informed perspectives on pediatric health, ADHD, and integrative care — written by Dr. Margaret Okonkwo.",
+//   showSearch = true,
+//   showCategoryChips = true,
+//   initialCategory = "All",
+// } = Astro.props;
+
+const {
+  posts,
+  featuredPosts = [],
+  title = "Okonkwo Care Blog - Your Resource for Insights & Guidance",
+  subtitle = "Evidence-informed perspectives on pediatric health, ADHD, integrative care, and holistic pediatric healthcare.",
+  showSearch = true,
+  showCategoryChips = true,
+  initialCategory = "All",
+} = Astro.props;
+
+// Build a clean category list (curated feel, no tag spam)
+const allPosts = [...featuredPosts, ...posts];
+const categoriesFromPosts = Array.from(
+  new Set(
+    allPosts
+      .map((p) => p.data.category)
+      .filter(Boolean)
+      .map(String)
+  )
+).sort((a, b) => a.localeCompare(b));
+
+const categories = ["All", ...categoriesFromPosts];
+
+const base = import.meta.env.BASE_URL;
+---
+
+<section class="bg-slate-50 border-b border-slate-200">
+  <div class="mx-auto max-w-7xl px-4 py-10 md:py-10">
+    <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+      {title}
+    </h1>
+    <p class="mt-3 max-w-3xl text-sm leading-6 text-slate-600">
+      {subtitle}
+    </p>
+
+    <div class="mt-6 grid gap-3 md:grid-cols-12 md:items-center">
+      {showSearch && (
+        <div class="md:col-span-6">
+          <label class="sr-only" for="blog-search">Search posts</label>
+          <input
+            id="blog-search"
+            type="search"
+            placeholder="Search articles…"
+            class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:ring-2 focus:ring-brand-600"
+          />
+        </div>
+      )}
+
+      {showCategoryChips && (
+        <div class="md:col-span-6">
+          <div class="flex gap-2 overflow-x-auto pb-1 blog-hide-scroll">
+            {categories.map((cat) => (
+              <button
+                type="button"
+                class="blog-chip shrink-0 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-brand-600"
+                data-category={cat}
+                aria-pressed={cat === initialCategory ? "true" : "false"}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<section class="bg-white">
+    
+    <div class="mx-auto max-w-7xl px-4 py-10 md:py-10">
+
+        {featuredPosts.length > 0 && (
+            <section>
+                <div class="flex items-end justify-between gap-4">
+                    <div>
+                        <p class="text-xs font-semibold uppercase tracking-wide text-brand-700">
+                        Featured
+                        </p>
+                        <h2 class="mt-1 text-lg font-semibold text-slate-900">
+                        Highlights
+                        </h2>
+                    </div>
+
+                    <div class="hidden sm:flex items-center gap-2">
+                        <button
+                        type="button"
+                        class="featured-prev rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-brand-600"
+                        aria-label="Previous featured post"
+                        >
+                        Prev
+                        </button>
+                        <button
+                        type="button"
+                        class="featured-next rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-brand-600"
+                        aria-label="Next featured post"
+                        >
+                        Next
+                        </button>
+                    </div>
+                </div>
+
+                <div id="featured-empty" class="hidden mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-6 text-sm text-slate-600">
+                    No posts match your filters.
+                </div>
+
+                <div
+                class="featured-track mt-4 flex gap-4 overflow-x-auto pb-3"
+                aria-label="Featured posts"
+                >
+                {featuredPosts.map((post) => {
+                    const pub = new Date(post.data.pubDate).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                    });
+                    const rt = readingTimeFromText(post.body);
+
+                    return (
+                    <article 
+                        class="featured-slide group shrink-0"
+                        data-title={post.data.title.toLowerCase()}
+                        data-desc={post.data.description.toLowerCase()}
+                        data-category={(post.data.category ?? "Uncategorized").toLowerCase()}
+                        data-author={(post.data.author ?? "").toLowerCase()}
+                        data-date={pub.toLowerCase()}
+                        data-body={post.body
+                            .toLowerCase()
+                            .replace(/[#*_`()\[\]]/g, " ")
+                            .replace(/\s+/g, " ")
+                            .trim()}
+                    >
+                        <a
+                        href={`${base}blog/${post.slug}/`}
+                        class="block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft transition hover:shadow-md no-underline!"
+                        >
+                        <div class="aspect-video bg-slate-100 overflow-hidden">
+                            <img
+                            src={post.data.heroImage}
+                            alt={post.data.heroImageAlt ?? post.data.title}
+                            loading="eager"
+                            decoding="async"
+                            class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+                            />
+                        </div>
+
+                        <div class="p-5">
+                            <div class="flex items-center gap-2">
+                            <span class="inline-flex items-center rounded-full bg-brand-50 px-2 py-0.5 text-xs font-semibold text-brand-800 ring-1 ring-brand-700/10">
+                                Featured
+                            </span>
+                            <span class="text-xs uppercase tracking-wide text-slate-500">
+                                {post.data.category ?? "Blog"}
+                            </span>
+                            </div>
+
+                            <h3 class="mt-2 text-base font-semibold text-slate-900 group-hover:text-brand-800">
+                            {post.data.title}
+                            </h3>
+
+                            <p class="mt-2 text-sm leading-6 text-slate-600 line-clamp-2">
+                            {post.data.description}
+                            </p>
+
+                            <div class="mt-4 flex items-center gap-2 text-xs text-slate-500">
+                            <span>{post.data.author}</span>
+                            <span class="text-slate-400" aria-hidden="true">•</span>
+                            <time datetime={new Date(post.data.pubDate).toISOString()}>{pub}</time>
+                            <span class="text-slate-400" aria-hidden="true">•</span> {rt.minutes} min read
+                            <span class="text-slate-300" aria-hidden="true">•</span>
+                            <span class="text-brand-700 font-medium group-hover:underline inline-flex items-center gap-1">
+                                Read
+                                <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                    <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                            </div>
+                        </div>
+                        </a>
+                    </article>
+                    );
+                })}
+                </div>
+
+                <div class="featured-dots mt-2 flex justify-center gap-2 sm:hidden" aria-label="Featured pagination">
+                {featuredPosts.map((_, i) => (
+                    <button
+                    type="button"
+                    class="featured-dot h-2.5 w-2.5 rounded-full bg-slate-300"
+                    aria-label={`Go to featured item ${i + 1}`}
+                    data-index={i}
+                    />
+                ))}
+                </div>
+            </section>
+        )}
+
+        <div>
+            <div class="mb-4 flex items-center justify-between">
+                <h2 class="mt-10 text-lg font-semibold text-slate-900">
+                    Latest posts
+                </h2>
+            </div>
+            <div id="blog-empty" class="hidden mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-6 text-sm text-slate-600">
+                No posts match your filters.
+            </div> 
+
+            <div id="blog-list" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post) => {
+                const pub = new Date(post.data.pubDate).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+                const upd = post.data.updatedDate
+                ? new Date(post.data.updatedDate).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })
+                : null;
+                const rt = readingTimeFromText(post.body);
+                
+                // Clean markdown/mdx content for search
+                // const bodyText = post.body.toLowerCase().replace(/[#*_`\[\]()]/g, ' ').replace(/\s+/g, ' ').trim();
+                
+                return (
+                <article 
+                    class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft hover:shadow-md transition"
+                    data-title={post.data.title.toLowerCase()}
+                    data-desc={post.data.description.toLowerCase()}
+                    data-category={(post.data.category ?? "Uncategorized").toLowerCase()}
+                    data-author={(post.data.author ?? "").toLowerCase()}
+                    data-date={pub.toLowerCase()}
+                    data-body={post.body
+                    .toLowerCase()
+                    .replace(/[#*_`\[\]()]/g, " ")
+                    .replace(/\s+/g, " ")
+                    .trim()}
+                    >
+                    <a href={`${base}blog/${post.slug}/`} class="block no-underline! hover:no-underline!">
+                    <div class="aspect-video bg-slate-100 overflow-hidden">
+                    {post.data.heroImage && (
+                    <Image
+                        src={post.data.heroImage}
+                        alt={post.data.heroImageAlt ?? post.data.title}
+                        loading="eager"
+                        width={1200}
+                        height={675}
+                        class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+                    />
+                        )}
+                    </div>
+
+                    <div class="p-5">
+                    <p class="text-xs uppercase tracking-wide text-brand-700">
+                        {post.data.category ?? "Blog"}
+                    </p>
+
+                    <h3 class="mt-2 text-base font-semibold text-slate-900 group-hover:text-brand-800">
+                        {post.data.title}
+                    </h3>
+
+                    <p class="mt-2 text-sm leading-6 text-slate-600 line-clamp-3">
+                        {post.data.description}
+                    </p>
+
+                    <div class="mt-4 flex items-center gap-2 text-xs text-slate-500">
+                        {/* <div class="flex gap-x-1 items-center"> */}
+                            <span>{post.data.author}</span><span class="text-slate-400" aria-hidden="true">•</span>
+                            <time datetime={new Date(post.data.pubDate).toISOString()}>{pub}</time>
+                            <span class="text-slate-400" aria-hidden="true">•</span> {rt.minutes} min read
+
+                            {upd && (
+                            <>
+                            <span class="text-slate-400" aria-hidden="true">•</span>
+                            <span class="text-slate-500">
+                                Updated <time datetime={new Date(post.data.updatedDate!).toISOString()}>{upd}</time>
+                            </span>
+                            </>
+                            )}
+
+                            
+                        {/* </div> */}
+
+                        <span class="inline-flex items-center gap-1 text-brand-700 font-medium ml-auto group-hover:underline">
+                        Read
+                        <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        </span>
+                    </div>
+                    </div>
+                    </a>
+                </article>
+                );
+            })}
+            </div>
+        </div>
+    </div>
+
+  <style>
+    .blog-hide-scroll::-webkit-scrollbar { display: none; }
+    .blog-hide-scroll { scrollbar-width: none; }
+    .blog-chip[aria-pressed="true"] {
+      border-color: var(--color-brand-300); /* brand-ish */
+      background: var(--color-brand-100); /* subtle blue wash */
+      color: var(--color-brand-800);
+    }
+  </style>
+
+  <script>
+    const input = document.getElementById("blog-search") as HTMLInputElement | null;
+    const chips = Array.from(document.querySelectorAll(".blog-chip"));
+    const list = document.getElementById("blog-list");
+    const empty = document.getElementById("blog-empty");
+    const featuredEmpty = document.getElementById("featured-empty");
+    const regularItems = list ? Array.from(list.querySelectorAll("article")) : [];
+    const featuredItems = Array.from(document.querySelectorAll(".featured-slide"));
+    const items = [...featuredItems, ...regularItems];
+
+    let activeCategory = (chips.find(c => c.getAttribute("aria-pressed") === "true") as HTMLElement)?.dataset.category || "All";
+
+    function applyFilters() {
+      const q = (input?.value || "").trim().toLowerCase();
+
+      let visibleCount = 0;
+      let visibleRegularCount = 0;
+
+      for (const el of items) {
+        const title = (el as HTMLElement).dataset.title || "";
+        const desc = (el as HTMLElement).dataset.desc || "";
+        const cat = (el as HTMLElement).dataset.category || "uncategorized";
+        const author = (el as HTMLElement).dataset.author || "";
+        const date = (el as HTMLElement).dataset.date || "";
+        const body = (el as HTMLElement).dataset.body || "";
+
+        const matchesText = !q || title.includes(q) || desc.includes(q) || cat.includes(q) || author.includes(q) || date.includes(q) || body.includes(q);
+        const matchesCat = activeCategory === "All" || cat === activeCategory.toLowerCase();
+
+        const show = matchesText && matchesCat;
+        el.classList.toggle("hidden", !show);
+        if (show) {
+          visibleCount++;
+          if (regularItems.includes(el as HTMLElement)) {
+            visibleRegularCount++;
+          }
+        }
+      }
+
+      // Show empty message only when regular posts are empty
+      empty?.classList.toggle("hidden", visibleRegularCount !== 0);
+      
+      // Handle featured section visibility
+      const featuredSection = document.querySelector("section:has(.featured-track)");
+      const visibleFeatured = featuredItems.filter(el => !el.classList.contains("hidden")).length;
+      const featuredTrack = document.querySelector(".featured-track");
+      
+      if (featuredSection) {
+        // Show featured section if there are any featured posts at all
+        featuredSection.classList.toggle("hidden", featuredItems.length === 0);
+        
+        // Show/hide the track and empty state based on filtered results
+        featuredTrack?.classList.toggle("hidden", visibleFeatured === 0);
+        featuredEmpty?.classList.toggle("hidden", visibleFeatured !== 0 || featuredItems.length === 0);
+      }
+    }
+
+    chips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const next = (chip as HTMLElement).dataset.category || "All";
+        activeCategory = next;
+
+        chips.forEach((c) => c.setAttribute("aria-pressed", c === chip ? "true" : "false"));
+        applyFilters();
+      });
+    });
+
+    input?.addEventListener("input", applyFilters);
+
+    // Initial
+    applyFilters();
+
+    // Featured carousel logic
+    const track = document.querySelector(".featured-track");
+    const slides = track ? Array.from(track.querySelectorAll(".featured-slide")) : [];
+    const dots = Array.from(document.querySelectorAll(".featured-dot"));
+    const prevBtn = document.querySelector(".featured-prev");
+    const nextBtn = document.querySelector(".featured-next");
+
+    function setActiveDot(i: number) {
+        dots.forEach((d, idx) => d.classList.toggle("is-active", idx === i));
+    }
+
+    function scrollToIndex(i: number) {
+        const el = slides[i] as HTMLElement;
+        if (!el || !track) return;
+        el.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+    }
+
+    function nearestByBoundingBox() {
+        if (!track || slides.length === 0) return 0;
+        const trackRect = track.getBoundingClientRect();
+        const trackLeft = trackRect.left;
+
+        let bestIdx = 0;
+        let bestDist = Infinity;
+
+        slides.forEach((el, idx) => {
+            const r = el.getBoundingClientRect();
+            const dist = Math.abs(r.left - trackLeft);
+            if (dist < bestDist) {
+                bestDist = dist;
+                bestIdx = idx;
+            }
+        });
+
+        return bestIdx;
+    }
+
+    let raf = 0;
+    function onScroll() {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+        const i = nearestByBoundingBox();
+        setActiveDot(i);
+        });
+    }
+
+    track?.addEventListener("scroll", onScroll, { passive: true });
+    setActiveDot(0);
+
+    prevBtn?.addEventListener("click", () => {
+        const i = nearestByBoundingBox();
+        scrollToIndex(Math.max(0, i - 1));
+    });
+
+    nextBtn?.addEventListener("click", () => {
+        const i = nearestByBoundingBox();
+        scrollToIndex(Math.min(slides.length - 1, i + 1));
+    });
+
+    dots.forEach((dot) => {
+        dot.addEventListener("click", () => {
+        const i = Number(dot.getAttribute("data-index") || "0");
+        scrollToIndex(i);
+        });
+    });
+  </script>
+</section>

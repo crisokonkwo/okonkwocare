@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 @import "swiper/css";
 @import "swiper/css/pagination";
 /* @import "swiper/css/navigation"; */  /* Removed - using custom SVG buttons */
@@ -215,3 +216,22 @@ a:hover {
   width: 20px;
   background-color: var(--color-brand-900);
  }
+
+ .featured-track {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.featured-track::-webkit-scrollbar { display: none; }
+.featured-track { scrollbar-width: none; }
+
+.featured-slide {
+  scroll-snap-align: start;
+  width: min(86vw, 420px);
+}
+@media (min-width: 640px) {
+  .featured-slide { width: 420px; }
+}
+
+.featured-dot.is-active {
+  background: var(--color-brand-700);
+}

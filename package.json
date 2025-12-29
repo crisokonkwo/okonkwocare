@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/mdx": "^4.3.13",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.16.6",
     "lucide-astro": "^0.556.0",
@@ -16,6 +17,7 @@
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.19",
     "terser": "^5.44.1"
   }
 }

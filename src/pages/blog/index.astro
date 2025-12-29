@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+import BlogList from "../../components/BlogList.astro";
+import FeaturedPostCard from "../../components/blog/FeaturedPostCard.astro";
+
+const posts = (await getCollection("blog"))
+  .filter((p: CollectionEntry<"blog">) => !p.data.draft)
+  .sort((a, b) => +new Date(b.data.pubDate) - +new Date(a.data.pubDate));
+
+const featuredPosts = posts.filter((p) => p.data.featured).slice(0, 8);
+const rest = posts.filter((p) => !featuredPosts.some((f) => f.slug === p.slug));
+---
+
+
+
+<!-- ---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogList from "../../components/BlogList.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+const posts = (await getCollection("blog"))
+  .filter((p: CollectionEntry<"blog">) => !p.data.draft)
+  .sort((a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) => +new Date(b.data.pubDate) - +new Date(a.data.pubDate));
+--- -->
+
+<BaseLayout
+  title="Blog"
+  description="Evidence-informed guidance on pediatric health, ADHD, and integrative care."
+>
+  <BlogList posts={rest} featuredPosts={featuredPosts} />
+
+</BaseLayout>
+
+
+
+
+
