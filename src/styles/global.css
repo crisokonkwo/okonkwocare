@@ -233,5 +233,6 @@ a:hover {
 }
 
 .featured-dot.is-active {
-  background: var(--color-brand-700);
+  width: 20px;
+  background-color: var(--color-brand-900);
 }
