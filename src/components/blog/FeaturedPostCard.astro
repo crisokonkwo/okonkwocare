@@ -9,7 +9,7 @@ type Props = {
 const { post } = Astro.props;
 
 const formatDate = (d: Date) =>
-  new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
 ---
 
 <article class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft">

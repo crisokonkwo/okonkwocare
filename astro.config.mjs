@@ -1,10 +1,16 @@
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
+import remarkMath from 'remark-math'
+import rehypeMathjax from 'rehype-mathjax'
 
 export default defineConfig({
   integrations: [
-    mdx(),
+    mdx({
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [rehypeMathjax],
+    }),
+    
   ],
   vite: {
     plugins: [tailwindcss()],
