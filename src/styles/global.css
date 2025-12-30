@@ -6,8 +6,9 @@
 
 
 /* ===== Tailwind v4 Configuration ===== */
-@theme {
-  /* Custom colors */
+/* https://www.tints.dev/palette/v1:ZnVjaHNpYXxEOTQ2RUZ8NTAwfHB8MHwwfDB8MTAwfGE */
+/* Custom colors */
+/* @theme {
   --color-brand-50: #eff6ff;
   --color-brand-100: #dbeafe;
   --color-brand-200: #bfdbfe;
@@ -19,6 +20,20 @@
   --color-brand-800: #1e40af;
   --color-brand-900: #1e3a8a;
   --color-brand-950: #172554;
+} */
+
+@theme {
+  --color-brand-50: #e9fde8;
+  --color-brand-100: #d2fbd0;
+  --color-brand-200: #a5f7a1;
+  --color-brand-300: #7df377;
+  --color-brand-400: #50ef48;
+  --color-brand-500: #23eb19;
+  --color-brand-600: #19c011;
+  --color-brand-700: #128d0c;
+  --color-brand-800: #0c5e08;
+  --color-brand-900: #062f04;
+  --color-brand-950: #031702;
 }
 
 /* ===== Global accessibility & polish ===== */
