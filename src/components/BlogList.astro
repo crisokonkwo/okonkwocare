@@ -53,7 +53,7 @@ const categories = ["All", ...categoriesFromPosts];
 const base = import.meta.env.BASE_URL;
 ---
 
-<section class="bg-slate-50 border-b border-slate-200">
+<section class="bg-slate-50 border-b border-slate-50">
   <div class="mx-auto max-w-7xl px-4 py-10 md:py-10">
     <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
       {title}
@@ -61,8 +61,12 @@ const base = import.meta.env.BASE_URL;
     <p class="mt-3 max-w-3xl text-sm leading-6 text-slate-600">
       {subtitle}
     </p>
+  </div>
+</section>
 
-    <div class="mt-6 space-y-3">
+<div id="sticky-filters" class="sticky top-30 z-30 bg-slate-50 border-b border-slate-200 transition-shadow duration-200">
+  <div class="mx-auto max-w-7xl px-4 py-4">
+    <div class="space-y-3">
       {showSearch && (
         <div>
           <label class="sr-only" for="blog-search">Search posts</label>
@@ -93,6 +97,10 @@ const base = import.meta.env.BASE_URL;
       )}
     </div>
   </div>
+</div>
+
+<section class="bg-slate-50">
+  <div class="mx-auto max-w-7xl px-4">
 </section>
 
 <section class="bg-white">
@@ -323,6 +331,16 @@ const base = import.meta.env.BASE_URL;
                 );
             })}
             </div>
+            
+            <div class="mt-8 flex justify-center">
+              <button
+                id="load-more-btn"
+                type="button"
+                class="hidden rounded-full bg-brand-600 px-8 py-3 text-sm font-semibold text-white shadow-md hover:bg-brand-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 transition"
+              >
+                Load more posts
+              </button>
+            </div>
         </div>
     </div>
 
@@ -334,9 +352,32 @@ const base = import.meta.env.BASE_URL;
       background: var(--color-brand-100); /* subtle blue wash */
       color: var(--color-brand-800);
     }
+    
+    /* Add shadow when sticky bar is scrolled */
+    #sticky-filters.is-stuck {
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+    
+    /* Hide posts beyond initial load */
+    .load-more-hidden {
+      display: none !important;
+    }
   </style>
 
   <script>
+    // Sticky filter bar shadow on scroll
+    const stickyFilters = document.getElementById("sticky-filters");
+    
+    if (stickyFilters) {
+      const observer = new IntersectionObserver(
+        ([e]) => {
+          stickyFilters.classList.toggle("is-stuck", e.intersectionRatio < 1);
+        },
+        { threshold: [1], rootMargin: "-1px 0px 0px 0px" }
+      );
+      observer.observe(stickyFilters);
+    }
+
     const input = document.getElementById("blog-search") as HTMLInputElement | null;
     const chips = Array.from(document.querySelectorAll(".blog-chip"));
     const list = document.getElementById("blog-list");
@@ -345,8 +386,44 @@ const base = import.meta.env.BASE_URL;
     const regularItems = list ? Array.from(list.querySelectorAll("article")) : [];
     const featuredItems = Array.from(document.querySelectorAll(".featured-slide"));
     const items = [...featuredItems, ...regularItems];
+    const loadMoreBtn = document.getElementById("load-more-btn");
 
     let activeCategory = (chips.find(c => c.getAttribute("aria-pressed") === "true") as HTMLElement)?.dataset.category || "All";
+    let debounceTimer: number | undefined;
+    let itemsToShow = 6; // Initial number of posts to show
+    const itemsPerLoad = 6; // Load 6 more at a time
+
+    function updateLoadMoreButton() {
+      if (!loadMoreBtn) return;
+      
+      // Count visible regular items that are not hidden by filters
+      const visibleFiltered = regularItems.filter(el => !el.classList.contains("hidden")).length;
+      const visibleDisplayed = regularItems.filter(el => 
+        !el.classList.contains("hidden") && !el.classList.contains("load-more-hidden")
+      ).length;
+      
+      // Show button if there are more filtered items to display
+      if (visibleFiltered > visibleDisplayed) {
+        loadMoreBtn.classList.remove("hidden");
+      } else {
+        loadMoreBtn.classList.add("hidden");
+      }
+    }
+
+    function applyLoadMore() {
+      let count = 0;
+      regularItems.forEach((el) => {
+        if (!el.classList.contains("hidden")) {
+          if (count < itemsToShow) {
+            el.classList.remove("load-more-hidden");
+            count++;
+          } else {
+            el.classList.add("load-more-hidden");
+          }
+        }
+      });
+      updateLoadMoreButton();
+    }
 
     function applyFilters() {
       const q = (input?.value || "").trim().toLowerCase();
@@ -391,6 +468,9 @@ const base = import.meta.env.BASE_URL;
         featuredTrack?.classList.toggle("hidden", visibleFeatured === 0);
         featuredEmpty?.classList.toggle("hidden", visibleFeatured !== 0 || featuredItems.length === 0);
       }
+      
+      // Apply load more after filtering
+      applyLoadMore();
     }
 
     chips.forEach((chip) => {
@@ -399,11 +479,25 @@ const base = import.meta.env.BASE_URL;
         activeCategory = next;
 
         chips.forEach((c) => c.setAttribute("aria-pressed", c === chip ? "true" : "false"));
+        itemsToShow = itemsPerLoad; // Reset to initial count when category changes
         applyFilters();
       });
     });
 
-    input?.addEventListener("input", applyFilters);
+    // Debounced search input
+    input?.addEventListener("input", () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = window.setTimeout(() => {
+        itemsToShow = itemsPerLoad; // Reset to initial count when searching
+        applyFilters();
+      }, 300); // 300ms delay
+    });
+
+    // Load more button
+    loadMoreBtn?.addEventListener("click", () => {
+      itemsToShow += itemsPerLoad;
+      applyLoadMore();
+    });
 
     // Initial
     applyFilters();
