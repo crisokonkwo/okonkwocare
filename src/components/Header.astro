@@ -16,7 +16,6 @@ const nav = [
         { href: `${base}services/adhd`, label: "Holistic ADHD Program" },
         { href: `${base}services/membership`, label: "Concierge Membership" },
         // Optional future pages:
-        // { href: `${base}services/membership`, label: "Concierge Membership" },
         // { href: `${base}services/nutrition`, label: "Nutrition & Wellness" },
         ],
     },
@@ -125,13 +124,16 @@ const slugify = (s: string) =>
                 }
 
                 // Services dropdown
+                const dropdownId = `dropdown-${slugify(item.label)}`;
                 return (
-                <div class="relative group">
-                    <a
-                    href={item.href}
-                    aria-current={active ? "page" : undefined}
+                <div class="relative group" data-dropdown-container={dropdownId}>
+                    <button
+                    type="button"
+                    data-dropdown-trigger={dropdownId}
+                    aria-expanded="false"
+                    aria-haspopup="true"
                     class:list={[
-                        "inline-flex items-center gap-1 no-underline rounded-lg px-2 py-1 transition",
+                        "inline-flex items-center gap-1 no-underline rounded-lg px-2 py-1 transition cursor-pointer",
                         active
                         ? "text-brand-800 bg-brand-50"
                         : "text-slate-700 hover:text-slate-900 hover:bg-slate-50",
@@ -139,7 +141,8 @@ const slugify = (s: string) =>
                     >
                     {item.label}
                     <svg
-                        class="h-4 w-4 text-slate-500 group-hover:text-slate-700"
+                        class="h-4 w-4 text-slate-500 group-hover:text-slate-700 transition-transform"
+                        data-dropdown-chevron={dropdownId}
                         viewBox="0 0 20 20"
                         fill="currentColor"
                         aria-hidden="true"
@@ -150,7 +153,7 @@ const slugify = (s: string) =>
                         clip-rule="evenodd"
                         />
                     </svg>
-                    </a>
+                    </button>
 
                     {/* Dropdown panel (hover + focus-within) */}
                     {/* <div class="pointer-events-none absolute left-0 top-full z-50 mt-2 w-64 opacity-0 transition
@@ -178,6 +181,7 @@ const slugify = (s: string) =>
 
                     {/* Dropdown wrapper (no mt gap) */}
                     <div
+                        data-dropdown-menu={dropdownId}
                         class="absolute left-0 top-full z-50 w-64 pt-2
                             opacity-0 pointer-events-none transition
                             group-hover:opacity-100 group-hover:pointer-events-auto
@@ -187,6 +191,21 @@ const slugify = (s: string) =>
                         <div class="absolute left-0 right-0 -top-2 h-2"></div>
 
                         <div class="rounded-2xl border border-slate-200 bg-white p-2 shadow-lg">
+                        {/* Add overview link at top */}
+                        {item.overviewLabel && (
+                            <a
+                                href={item.href}
+                                class:list={[
+                                    "block rounded-xl px-3 py-2 text-xs font-semibold uppercase tracking-wide no-underline transition border-b border-slate-100 mb-1",
+                                    isActiveExact(item.href)
+                                        ? "bg-brand-50 text-brand-800"
+                                        : "text-slate-500 hover:bg-slate-50 hover:text-slate-900",
+                                ]}
+                            >
+                                {item.overviewLabel}
+                            </a>
+                        )}
+                        
                         {item.children && item.children.map((child) => {
                             const childActive = isActiveExact(child.href);
                             return (
@@ -572,6 +591,95 @@ const slugify = (s: string) =>
                 document.addEventListener("DOMContentLoaded", initAccordionsSingleOpen);
             } else {
                 initAccordionsSingleOpen();
+            }
+
+            // Desktop dropdown click handlers for tablet/touch devices
+            function initDesktopDropdowns() {
+                const triggers = document.querySelectorAll('[data-dropdown-trigger]');
+                
+                triggers.forEach(trigger => {
+                    const dropdownId = trigger.getAttribute('data-dropdown-trigger');
+                    if (!dropdownId) return;
+                    
+                    const container = document.querySelector(`[data-dropdown-container="${dropdownId}"]`);
+                    const menu = document.querySelector(`[data-dropdown-menu="${dropdownId}"]`);
+                    const chevron = document.querySelector(`[data-dropdown-chevron="${dropdownId}"]`);
+                    
+                    if (!menu || !container) return;
+                    
+                    // Toggle dropdown on click
+                    trigger.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+                        
+                        // Close all other dropdowns first
+                        document.querySelectorAll('[data-dropdown-trigger]').forEach(otherTrigger => {
+                            if (otherTrigger !== trigger) {
+                                const otherId = otherTrigger.getAttribute('data-dropdown-trigger');
+                                const otherMenu = document.querySelector(`[data-dropdown-menu="${otherId}"]`);
+                                const otherChevron = document.querySelector(`[data-dropdown-chevron="${otherId}"]`);
+                                
+                                otherTrigger.setAttribute('aria-expanded', 'false');
+                                otherMenu?.classList.remove('!opacity-100', '!pointer-events-auto');
+                                otherChevron?.classList.remove('rotate-180');
+                            }
+                        });
+                        
+                        // Toggle current dropdown
+                        if (isOpen) {
+                            trigger.setAttribute('aria-expanded', 'false');
+                            menu.classList.remove('!opacity-100', '!pointer-events-auto');
+                            chevron?.classList.remove('rotate-180');
+                        } else {
+                            trigger.setAttribute('aria-expanded', 'true');
+                            menu.classList.add('!opacity-100', '!pointer-events-auto');
+                            chevron?.classList.add('rotate-180');
+                        }
+                    });
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    const target = e.target;
+                    if (!(target instanceof Element)) return;
+                    
+                    // Don't close if clicking a trigger or inside a dropdown container
+                    if (target.closest('[data-dropdown-trigger]') || target.closest('[data-dropdown-container]')) return;
+                    
+                    // Close all dropdowns
+                    document.querySelectorAll('[data-dropdown-trigger]').forEach(trigger => {
+                        const dropdownId = trigger.getAttribute('data-dropdown-trigger');
+                        const menu = document.querySelector(`[data-dropdown-menu="${dropdownId}"]`);
+                        const chevron = document.querySelector(`[data-dropdown-chevron="${dropdownId}"]`);
+                        
+                        trigger.setAttribute('aria-expanded', 'false');
+                        menu?.classList.remove('!opacity-100', '!pointer-events-auto');
+                        chevron?.classList.remove('rotate-180');
+                    });
+                });
+                
+                // Close on Escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        document.querySelectorAll('[data-dropdown-trigger]').forEach(trigger => {
+                            const dropdownId = trigger.getAttribute('data-dropdown-trigger');
+                            const menu = document.querySelector(`[data-dropdown-menu="${dropdownId}"]`);
+                            const chevron = document.querySelector(`[data-dropdown-chevron="${dropdownId}"]`);
+                            
+                            trigger.setAttribute('aria-expanded', 'false');
+                            menu?.classList.remove('!opacity-100', '!pointer-events-auto');
+                            chevron?.classList.remove('rotate-180');
+                        });
+                    }
+                });
+            }
+
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", initDesktopDropdowns);
+            } else {
+                initDesktopDropdowns();
             }
         </script>
     </div>

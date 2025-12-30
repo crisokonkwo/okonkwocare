@@ -1,27 +1,127 @@
 ---
-const { title,
-    description,
-    canonical = Astro.url.toString(),
-    noindex = false
- } = Astro.props;
+import { site } from "../lib/site";
 
- const finalTitle = title ? `${title} | Okonkwo Care Pediatrics | Holistic Integrative Pediatric Care in Miami | Dr. Margaret Okonkwo` : "Okonkwo Care Pediatrics | Holistic Integrative Pediatric Care in Miami | Dr. Margaret Okonkwo";
- const finalDescription = 
-    description ?? 
-    "Discover Miami’s leader in holistic pediatric ADHD care. Okonkwo Care Pediatrics offers concierge-style visits focused on natural healing and personalized child wellness.";
- ---
- 
- <meta charset="UTF-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- <title>{finalTitle}</title>
- <meta name="description" content={finalDescription} />
- <link rel="canonical" href={canonical} />
- {noindex ? <meta name="robots" content="noindex, nofollow" /> : null}
+const { 
+   title,
+   description,
+   canonical = Astro.url.toString(),
+   noindex = true, // Default to true for pages under development changre to false when ready
+   image = `${site.seo.siteUrl}${site.seo.defaultImage}`,
+   article = false,
+   keywords = `${site.seo.keywords.home},${site.seo.keywords.adhd},${site.seo.keywords.blog},${site.seo.keywords.contact},${site.seo.keywords.services}`,
+   author = "Dr. Margaret Okonkwo"
+} = Astro.props;
+
+// console.log("SEO Meta Tags Rendered");
+// console.log({
+//    title,
+//    description,
+//    canonical,
+//    noindex,
+//    image,
+//    article,
+//    keywords,
+//    author, 
+//    site
+// });
+
+const finalTitle = title 
+    ? `${title} | ${site.name}` 
+    : site.seo.defaultTitle;
+const finalDescription = description ?? site.seo.defaultDescription;
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{finalTitle}</title>
+<meta name="description" content={finalDescription} />
+<link rel="canonical" href={canonical} />
+{keywords && <meta name="keywords" content={keywords} />}
+{author && <meta name="author" content={author} />}
+{noindex ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />}
  
 <!-- Open Graph Tags -->
- <meta property="og:title" content={finalTitle} />
- <meta property="og:description" content={finalDescription} />
- <meta property="og:type" content="website" />
- <meta property="og:url" content={canonical} />
- <meta property="og:site_name" content="Okonkwo Care Pediatrics" />
+<meta property="og:title" content={finalTitle} />
+<meta property="og:description" content={finalDescription} />
+<meta property="og:type" content={article ? "article" : "website"} />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:image" content={image} />
+<meta property="og:image:alt" content={finalDescription} />
+<meta property="og:image:width" content="1024" />
+<meta property="og:image:height" content="563" />
+<meta property="og:locale" content="en_US" />
 
+<!-- Twitter Card Tags -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={finalTitle} />
+<meta name="twitter:description" content={finalDescription} />
+<meta name="twitter:image" content={image} />
+<meta name="twitter:image:alt" content={finalDescription} />
+{site.socials.twitter && <meta name="twitter:site" content={site.socials.twitter} />}
+
+<!-- Local SEO -->
+<meta name="geo.region" content={`US-${site.location.stateCode}`} />
+<meta name="geo.placename" content={site.location.city} />
+<meta name="geo.position" content={`${site.location.coordinates.latitude};${site.location.coordinates.longitude}`} />
+<meta name="ICBM" content={`${site.location.coordinates.latitude}, ${site.location.coordinates.longitude}`} />
+
+<!-- Structured Data -->
+<script type="application/ld+json" is:inline>
+   {JSON.stringify({
+   "@context": "https://schema.org",
+   "@type": "MedicalBusiness",
+   "@id": `${site.siteUrl}/#clinic`,
+   "name": site.business.name,
+   "url": site.siteUrl,
+   "telephone": site.business.phone,
+   "email": site.business.email,
+   "image": `${site.siteUrl}${site.defaultImage}`,
+   "address": {
+         "@type": "PostalAddress",
+         "streetAddress": site.business.address.street,
+         "addressLocality": site.business.address.city,
+         "addressRegion": site.business.address.state,
+         "postalCode": site.business.address.zip,
+         "addressCountry": site.business.address.country
+   },
+   "geo": {
+         "@type": "GeoCoordinates",
+         "latitude": site.business.coordinates.latitude,
+         "longitude": site.business.coordinates.longitude
+   },
+   "openingHoursSpecification": {
+         "@type": "OpeningHoursSpecification",
+         "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+         "opens": "09:00",
+         "closes": "17:00"
+   },
+   "priceRange": "$$",
+   "medicalSpecialty": ["Pediatrics", "Integrative Medicine"],
+   "employee": {
+         "@type": "Physician",
+         "@id": `${site.siteUrl}/okonkwocare/about-dr-okonkwo/`
+   },
+   "sameAs": [
+         site.socials.facebook,
+         site.socials.instagram
+   ]
+   })}
+</script>
+
+<!-- Physician Structured Data -->
+<script type="application/ld+json" is:inline>
+   {JSON.stringify({
+   "@context": "https://schema.org",
+   "@type": "Physician",
+   "@id": `${site.siteUrl}/okonkwocare/about-dr-okonkwo/`,
+   "name": "Dr. Margaret Okonkwo",
+   "honorificPrefix": "Dr.",
+   "familyName": "Okonkwo",
+   "givenName": "Margaret",
+   "medicalSpecialty": "Pediatrics",
+   "worksFor": {
+         "@id": `${site.siteUrl}/okonkwocare/`
+   }
+   })}
+</script>
