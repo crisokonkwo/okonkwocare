@@ -20,9 +20,10 @@ const nav = [
         ],
     },
     { 
-        href: `${base}resources/patient-resources`, 
+        href: `${base}resources`, 
         label: "Resources",
         overviewLabel: "Patient Resources",
+        overviewHref: `${base}resources/patient-resources`,
         children: [
         { href: `${base}resources/patient-resources`, label: "Patient Resources" },
         { href: `${base}resources/faq`, label: "FAQs" },
@@ -194,10 +195,10 @@ const slugify = (s: string) =>
                         {/* Add overview link at top */}
                         {item.overviewLabel && (
                             <a
-                                href={item.href}
+                                href={"overviewHref" in item && item.overviewHref ? item.overviewHref : item.href}
                                 class:list={[
                                     "block rounded-xl px-3 py-2 text-xs font-semibold uppercase tracking-wide no-underline transition border-b border-slate-100 mb-1",
-                                    isActiveExact(item.href)
+                                    isActiveExact("overviewHref" in item && item.overviewHref ? item.overviewHref : item.href)
                                         ? "bg-brand-50 text-brand-800"
                                         : "text-slate-500 hover:bg-slate-50 hover:text-slate-900",
                                 ]}
@@ -418,11 +419,11 @@ const slugify = (s: string) =>
                             {/* Parent overview link (optional but useful) */}
                             {item.overviewLabel && (
                             <a
-                                href={item.href}
+                                href={"overviewHref" in item && item.overviewHref ? item.overviewHref : item.href}
                                 data-nav-link
                                 class:list={[
                                 "block rounded-xl px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-500",
-                                isActiveExact(item.href)
+                                isActiveExact("overviewHref" in item && item.overviewHref ? item.overviewHref : item.href)
                                     ? "bg-brand-50 text-brand-800"
                                     : "text-slate-700 hover:bg-slate-50 hover:text-slate-900",
                                 ]}
@@ -432,7 +433,7 @@ const slugify = (s: string) =>
                             )}
 
                             {hasChildren && item.children && item.children
-                                .filter((c) => c.href !== item.href)
+                                .filter((c) => c.href !== ("overviewHref" in item && item.overviewHref ? item.overviewHref : item.href))
                                 .map((child) => {
                                 const childActive = isActiveExact(child.href);
                                 return (
