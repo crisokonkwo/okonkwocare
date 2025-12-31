@@ -10,9 +10,34 @@ import ADHDCTA from "../../components/adhd/ADHDCTA.astro";
 const title = "Holistic ADHD Program";
 const description =
   "A holistic, integrative approach to ADHD treatment in Miami — personalized care, root-cause evaluation, and supportive strategies for families.";
+
+const adhdjsonLd = {
+  "@context": "https://schema.org",
+  "@type": "MedicalTherapy",
+  name: "Holistic Attention Deficit Hyperactivity Disorder (ADHD) Program",
+  description:
+    "Attention Deficit Hyperactivity Disorder (ADHD) is a neurodevelopmental disorder characterized by symptoms of inattention, hyperactivity, and impulsivity. At Okonkwo Care Pediatrics, we offer a holistic and integrative approach to ADHD treatment, focusing on personalized care plans that address the root causes and support overall well-being.",
+  url: `${import.meta.env.SITE}${import.meta.env.BASE_URL}services/adhd`,
+  potentialTreatment: {
+    "@type": "MedicalTherapy",
+    name: "Holistic ADHD Treatment Program",
+    description:
+      "Our ADHD treatment program includes comprehensive evaluations, dietary and lifestyle modifications, behavioral therapies, and family support strategies to help children thrive.",
+    "provider": {
+      "@type": "MedicalBusiness",
+      name: "Okonkwo Care Pediatrics",
+      url: `${import.meta.env.SITE}${import.meta.env.BASE_URL}`,
+      "@id": `${import.meta.env.SITE}${import.meta.env.BASE_URL}`,
+    },
+  },
+};
 ---
 
 <BaseLayout title={title} description={description}>
+  <script type="application/ld+json" is:inline>
+    {JSON.stringify(adhdjsonLd)}
+  </script>
+  
   <main>
     <ADHDHero />
     <ADHDIntroGrid />

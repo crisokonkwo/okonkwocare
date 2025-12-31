@@ -13,9 +13,29 @@ import MembershipCTA from "../../components/membership/MembershipCTA.astro";
 const title = "Concierge Membership";
 const description =
   "Concierge pediatric membership in Miami with direct physician access, unrushed visits, and continuity of care. See details, what’s included, and next steps.";
+
+const membershipJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "MedicalBusiness",
+  name: "Okonkwo Care Pediatrics Concierge Membership",
+  description:
+    "Our concierge pediatric membership offers families personalized, comprehensive care with direct access to Dr. Margaret Okonkwo. Enjoy unrushed visits, continuity of care, and a holistic approach to your child's health and well-being.",
+  url: `${import.meta.env.SITE}${import.meta.env.BASE_URL}services/membership`,
+  serviceType: "Concierge Pediatric Membership",
+  provider: {
+    "@type": "MedicalBusiness",
+    name: "Okonkwo Care Pediatrics",
+    url: `${import.meta.env.SITE}${import.meta.env.BASE_URL}`,
+    "@id": `${import.meta.env.SITE}${import.meta.env.BASE_URL}`,
+  },
+};
 ---
 
 <BaseLayout title={title} description={description}>
+  <script type="application/ld+json" is:inline>
+    {JSON.stringify(membershipJsonLd)}
+  </script>
+
     <main>
         <MembershipHero />
         <MembershipWhoItsFor />
@@ -32,7 +52,7 @@ const description =
             { n: "04", title: "Ongoing support", desc: "Direct access and continuity as your child grows." },
           ]}
         />
-        <!-- <MembershipFAQ /> -->
+        <MembershipFAQ />
         <MembershipCTA />
     </main>
 </BaseLayout>

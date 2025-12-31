@@ -42,6 +42,8 @@ const schema = {
   keywords: post.data.tags?.join(", ") || post.data.category,
   url: url
 };
+
+// console.log("Blog Post Schema:", schema);
 ---
 
 <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />

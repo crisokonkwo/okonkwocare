@@ -61,22 +61,22 @@ const finalDescription = description ?? site.seo.defaultDescription;
 {site.socials.twitter && <meta name="twitter:site" content={site.socials.twitter} />}
 
 <!-- Local SEO -->
-<meta name="geo.region" content={`US-${site.location.stateCode}`} />
-<meta name="geo.placename" content={site.location.city} />
-<meta name="geo.position" content={`${site.location.coordinates.latitude};${site.location.coordinates.longitude}`} />
-<meta name="ICBM" content={`${site.location.coordinates.latitude}, ${site.location.coordinates.longitude}`} />
+<meta name="geo.region" content={`US-${site.business.address.state}`} />
+<meta name="geo.placename" content={site.business.address.city} />
+<meta name="geo.position" content={`${site.business.coordinates.latitude};${site.business.coordinates.longitude}`} />
+<meta name="ICBM" content={`${site.business.coordinates.latitude}, ${site.business.coordinates.longitude}`} />
 
 <!-- Structured Data -->
 <script type="application/ld+json" is:inline>
    {JSON.stringify({
    "@context": "https://schema.org",
    "@type": "MedicalBusiness",
-   "@id": `${site.siteUrl}/#clinic`,
+   "@id": `${site.seo.siteUrl}/`,
    "name": site.business.name,
-   "url": site.siteUrl,
+   "url": site.seo.siteUrl,
    "telephone": site.business.phone,
    "email": site.business.email,
-   "image": `${site.siteUrl}${site.defaultImage}`,
+   "image": `${site.seo.siteUrl}${site.seo.defaultImage}`,
    "address": {
          "@type": "PostalAddress",
          "streetAddress": site.business.address.street,
@@ -100,7 +100,7 @@ const finalDescription = description ?? site.seo.defaultDescription;
    "medicalSpecialty": ["Pediatrics", "Integrative Medicine"],
    "employee": {
          "@type": "Physician",
-         "@id": `${site.siteUrl}/okonkwocare/about-dr-okonkwo/`
+         "@id": `${site.seo.siteUrl}/okonkwocare/about-dr-okonkwo/`
    },
    "sameAs": [
          site.socials.facebook,
@@ -114,14 +114,14 @@ const finalDescription = description ?? site.seo.defaultDescription;
    {JSON.stringify({
    "@context": "https://schema.org",
    "@type": "Physician",
-   "@id": `${site.siteUrl}/okonkwocare/about-dr-okonkwo/`,
+   "@id": `${site.seo.siteUrl}/okonkwocare/about-dr-okonkwo/`,
    "name": "Dr. Margaret Okonkwo",
    "honorificPrefix": "Dr.",
    "familyName": "Okonkwo",
    "givenName": "Margaret",
    "medicalSpecialty": "Pediatrics",
    "worksFor": {
-         "@id": `${site.siteUrl}/okonkwocare/`
+         "@id": `${site.seo.siteUrl}/okonkwocare/`
    }
    })}
 </script>
