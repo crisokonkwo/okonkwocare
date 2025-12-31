@@ -8,7 +8,7 @@ export const site = {
     addressLine1: "5582 N.E. 4th Ct Suite #9",
     addressLine2: "Miami, FL 33137",
     mapUrl: "https://maps.app.goo.gl/p5RDXUgNxEsUCrUv7",
-    email: "info@okonkwocare.com", // Add actual email
+    email: "", // Add actual email
 
     socials: {
         facebook: "https://www.facebook.com/OkonkwoCarePediatrics",

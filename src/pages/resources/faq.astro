@@ -94,8 +94,8 @@ const faqJsonLd = {
   </script>
 
   {/* Hero */}
-  <section class="bg-linear-to-b from-slate-50 to-white border-b border-slate-200 sticky top-20 z-30 transition-shadow duration-200" id="faq-sticky-header">
-    <div class="mx-auto max-w-3xl px-4 py-12 md:py-14 text-center">
+  <section class="bg-linear-to-b from-slate-50 to-white border-b border-slate-200 sticky top-0 z-30 transition-shadow duration-200" id="faq-sticky-header">
+    <div class="mx-auto max-w-3xl px-4 py-10 md:py-10 text-center">
       <h1 class="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
         Frequently Asked Questions
       </h1>
@@ -160,7 +160,7 @@ const faqJsonLd = {
       <div class="space-y-10" id="faq-groups">
         {faqs.map((group) => (
           <div
-            class="faq-group scroll-mt-28"
+            class="faq-group scroll-mt-40"
             id={group.group.toLowerCase().replace(/[^a-z0-9]+/g, "-")}
             data-group={group.group}
           >
@@ -208,17 +208,23 @@ const faqJsonLd = {
           <div class="mt-6 flex flex-col gap-3 sm:flex-row justify-center">
             <div>
               <a
-                href={`tel:${site.phoneTel}`}
+                href={`${base}contact`}
                 class="inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-700 px-5 py-3 text-sm font-semibold text-white no-underline
                       hover:bg-brand-100 focus-visible:ring-2 focus-visible:ring-brand-600"
               >
-                <Phone class="h-4 w-4" aria-hidden="true" />
+                Schedule a consult
+              </a>
+          </div>
+            <div>
+              <a
+                href={`tel:${site.phoneTel}`}
+                class="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 no-underline
+                      hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-brand-600"
+              >
+                <!-- <Phone class="h-4 w-4" aria-hidden="true" /> -->
                 Call {site.phoneDisplay}
               </a>
             </div>
-          
-          </div>
-        
       </div>
     </div>
 
@@ -263,6 +269,25 @@ const faqJsonLd = {
           });
 
           (group as HTMLElement).style.display = anyVisible ? "" : "none";
+        });
+      });
+
+      // Add smooth scroll with offset for jump links
+      document.querySelectorAll('nav[aria-label="FAQ sections"] a').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = link.getAttribute('href')?.slice(1);
+          const target = document.getElementById(targetId || '');
+          
+          if (target) {
+            const headerHeight = stickyHeader?.offsetHeight || 0;
+            const targetPosition = target.offsetTop - headerHeight - 24; // 24px extra padding
+            
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
         });
       });
     </script>
