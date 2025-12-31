@@ -21,7 +21,7 @@ Okonkwo Care Pediatrics is led by Dr. Margaret Okonkwo, a board-certified pediat
 
 ## Project Structure
 
-```
+```md
 okonkwocare/
 ├── public/               # Static assets
 │   ├── robots.txt
