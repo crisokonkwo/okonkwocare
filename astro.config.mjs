@@ -3,6 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
 import remarkMath from "remark-math";
 import rehypeMathjax from "rehype-mathjax";
+import sitemap from "@astrojs/sitemap";
 
 const isNetlify = process.env.NETLIFY === "true";
 
@@ -12,6 +13,7 @@ export default defineConfig({
       remarkPlugins: [remarkMath],
       rehypePlugins: [rehypeMathjax],
     }),
+    sitemap(),
   ],
   vite: {
     plugins: [tailwindcss()],
