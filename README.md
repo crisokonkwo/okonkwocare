@@ -1,43 +1,138 @@
-# Astro Starter Kit: Minimal
+# Okonkwo Care Pediatrics Website
 
-```sh
-npm create astro@latest -- --template minimal
+A website for Okonkwo Care Pediatrics - a concierge-style pediatric practice in Miami, Florida, specializing in holistic integrative care and ADHD treatment.
+
+## About
+
+Okonkwo Care Pediatrics is led by Dr. Margaret Okonkwo, a board-certified pediatrician with over 20 years of experience. The practice offers:
+
+- **Concierge Membership**: Personalized, unrushed visits with direct physician access
+- **Holistic ADHD Program**: Functional medicine approach to ADHD diagnosis and treatment
+- **Integrative Pediatric Care**: Evidence-based medicine combined with holistic support
+
+## Tech Stack
+
+- **Framework**: [Astro](https://astro.build) v5.16.6
+- **Styling**: [Tailwind CSS](https://tailwindcss.com) v4.1.18
+- **Content**: MDX for blog posts with math support (KaTeX)
+- **Icons**: [Lucide Astro](https://lucide.dev)
+- **Deployment**: Netlify (primary) / GitHub Pages (alternative)
+- **Package Manager**: npm
+
+## Project Structure
+
 ```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
+okonkwocare/
+├── public/               # Static assets
+│   ├── robots.txt
+│   ├── favicon/
+│   ├── images/
+│   └── videos/
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── assets/          # Image assets processed by Astro
+│   ├── components/      # Reusable Astro components
+│   │   ├── adhd/       # ADHD program components
+│   │   ├── membership/ # Membership components
+│   │   ├── mdx/        # MDX custom components
+│   │   └── ...
+│   ├── content/
+│   │   └── blog/       # MDX blog posts
+│   ├── layouts/        # Page layouts
+│   ├── lib/            # Utilities and site config
+│   ├── pages/          # File-based routing
+│   │   ├── resources/
+│   │   ├── services/
+│   │   └── blog/
+│   └── styles/         # Global styles
+├── .astro/             # Astro generated files
+├── .github/
+│   └── workflows/      # CI/CD workflows
+└── netlify.toml        # Netlify configuration
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Development
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+``` bash
+# Clone the repository
+git clone <repository-url>
+cd okonkwocare
 
-Any static assets, like images, can be placed in the `public/` directory.
+# Install dependencies
+npm install
+```
 
-## 🧞 Commands
+```bash
+# Start development server
+npm run dev
 
-All commands are run from the root of the project, from a terminal:
+# Build for production
+npm run build
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+# Preview production build
+npm run preview
+```
 
-## 👀 Want to learn more?
+## Content Management
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Blog posts are located in blog folder and use MDX format.
+
+````md
+---
+title: "Post Title"
+description: "Brief description for SEO"
+author: "Dr. Margaret Okonkwo"
+pubDate: 2025-01-15
+category: "ADHD"
+tags: ["nutrition", "holistic"]
+draft: false
+heroImage: "/images/blog/post-image.webp"
+heroImageAlt: "Image description"
+featured: false
+---
+
+## Your Content Here
+
+Use custom MDX components:
+
+<CTA title="How we can help" href="contact" ctaText="Contact Us">
+Description text here
+</CTA>
+
+<ClinicalNote title="Medical note">
+This blog is for general education and is not medical advice.
+</ClinicalNote>
+
+<Evidence>
+- Reference 1
+- Reference 2
+</Evidence>
+````
+
+## SEO & Structured Data
+
+Core site settings are in site.ts. Seo component are in components/Seo.astro
+
+**JSON-LD structured data is included for:**
+Medical Business (BaseLayout.astro)
+Physician (about-dr-okonkwo.astro)
+FAQ (faq.astro)
+Services (adhd.astro, membership.astro)
+
+## Deployment
+
+Netlify (Primary) Automatic deployments via netlify.toml:
+
+Branch: main
+Build Command: npm run build
+Publish Directory: dist
+Forms: Netlify Forms enabled
+
+## License
+
+© 2025 Okonkwo Care Pediatrics. All rights reserved.
+
+## Contributing
+
+This is a private project. For questions or support requests, contact the development team.
+
+Built with ❤️ for families seeking holistic pediatric care in Miami, Florida
