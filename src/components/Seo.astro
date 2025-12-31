@@ -5,7 +5,7 @@ const {
    title,
    description,
    canonical = Astro.url.toString(),
-   noindex = true, // Default to true for pages under development changre to false when ready
+   noindex = false, // Default to true for pages under development changre to false when ready
    image = `${site.seo.siteUrl}${site.seo.defaultImage}`,
    article = false,
    keywords = `${site.seo.keywords.home},${site.seo.keywords.adhd},${site.seo.keywords.blog},${site.seo.keywords.contact},${site.seo.keywords.services}`,
