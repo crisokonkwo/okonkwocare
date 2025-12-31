@@ -1,0 +1,47 @@
+---
+import { site } from "../lib/site";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+  url: string;
+}
+
+const { post, url } = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.data.title,
+  description: post.data.description,
+  image: post.data.heroImage 
+    ? `${site.seo.siteUrl}${post.data.heroImage}` 
+    : `${site.seo.siteUrl}${site.seo.defaultImage}`,
+  datePublished: new Date(post.data.pubDate).toISOString(),
+  dateModified: post.data.updatedDate 
+    ? new Date(post.data.updatedDate).toISOString() 
+    : new Date(post.data.pubDate).toISOString(),
+  author: {
+    "@type": "Person",
+    name: post.data.author || "Dr. Margaret Okonkwo",
+    url: `${site.seo.siteUrl}/okonkwocare/about-dr-okonkwo`
+  },
+  publisher: {
+    "@type": "MedicalBusiness",
+    name: site.name,
+    logo: {
+      "@type": "ImageObject",
+      url: `${site.seo.siteUrl}/okonkwocare/okonkwocare-logo.png`
+    }
+  },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": url
+  },
+  articleSection: post.data.category || "Blog",
+  keywords: post.data.tags?.join(", ") || post.data.category,
+  url: url
+};
+---
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
