@@ -161,7 +161,7 @@ const base = import.meta.env.BASE_URL;
 ---
 
 <section class="bg-linear-to-b from-slate-150 to-white">
-    <div class="mx-auto max-w-7xl px-4 py-10">
+  <div class="mx-auto max-w-7xl px-4 py-10">
         <header class="text-center mb-10">
             <p class="text-xs font-semibold uppercase tracking-wide text-brand-700">
                 Patient Experience
@@ -169,7 +169,7 @@ const base = import.meta.env.BASE_URL;
             <h2 class="text-2xl font-bold uppercase tracking-tight text-slate-900 sm:text-3xl">
                 What our patients are saying
             </h2>
-            <p class="text-sm text-center leading-5 text-slate-600">
+            <p class="text-sm text-center leading-5 text-slate-800">
                 Our level of care is reflected in the relationships we build with our patients.
             </p>
         </header>
@@ -178,14 +178,14 @@ const base = import.meta.env.BASE_URL;
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
             <!-- Left: Testimonials Slider -->
             <div >
-                <div class="rounded-3xl p-6">
+              <div class="rounded-3xl p-6 bg-white">
                     <TestimonialsSlider testimonials={testimonials} />
                 </div>
             </div>
 
             <!-- Right: Image + CTA -->
             <div>
-                <div class="rounded-3xl  p-4 shadow-soft">
+              <div class="rounded-3xl p-4 shadow-soft bg-white">
                     <div class="overflow-hidden rounded-2xl bg-slate-100">
                         <Image
                             src={sideImage}
@@ -199,12 +199,12 @@ const base = import.meta.env.BASE_URL;
                         />
                     </div>
                     <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:gap-4">
-                        <a
-                        href={`${base}contact`}
-                        class="inline-flex items-center justify-center rounded-xl bg-brand-700 px-5 py-3 text-sm font-semibold text-white no-underline shadow-sm transition hover:bg-brand-100 focus-visible:ring-2 focus-visible:ring-brand-600"
-                        >
-                        Get Started
-                        </a>
+                      <a
+                      href={`${base}contact`}
+                      class="inline-flex items-center justify-center rounded-xl bg-brand-800 px-5 py-3 text-sm font-semibold text-white no-underline shadow-sm transition hover:bg-brand-100 focus-visible:ring-2 focus-visible:ring-brand-600"
+                      >
+                      Get Started
+                      </a>
                     </div>
                 </div>
             </div>
