@@ -32,7 +32,7 @@ export const site = {
             adhd: "ADHD treatment Miami, pediatric ADHD specialist, holistic ADHD care, natural ADHD treatment",
             blog: "pediatric health, ADHD guidance, child wellness, integrative medicine",
             contact: "contact pediatrician Miami, Okonkwo Care Pediatrics contact, Dr Margaret Okonkwo contact",
-            services: "pediatric services Miami, holistic pediatric services, ADHD care services"
+            services: "pediatric services Miami, holistic pediatric services, ADHD care services concierge pediatrics Miami, membership pediatrician, holistic child care"
         }
     },
 

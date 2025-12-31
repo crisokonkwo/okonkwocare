@@ -177,7 +177,7 @@ const base = import.meta.env.BASE_URL;
                 <div class="aspect-video bg-slate-100 overflow-hidden">
                     {post.data.heroImage && (
                     <Image
-                    src={post.data.heroImage}
+                    src={`${base}${post.data.heroImage}`}
                     alt={post.data.heroImageAlt ?? post.data.title}
                     loading="eager"
                     width={1200}
@@ -281,7 +281,7 @@ const base = import.meta.env.BASE_URL;
                 <div class="aspect-video bg-slate-100 overflow-hidden">
                 {post.data.heroImage && (
                 <Image
-                    src={post.data.heroImage}
+                    src={`${base}${post.data.heroImage}`}
                     alt={post.data.heroImageAlt ?? post.data.title}
                     loading="eager"
                     width={1200}
