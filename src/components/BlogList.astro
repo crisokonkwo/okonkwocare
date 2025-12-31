@@ -51,6 +51,8 @@ const categoriesFromPosts = Array.from(
 const categories = ["All", ...categoriesFromPosts];
 
 const base = import.meta.env.BASE_URL;
+
+console.log("BlogList base URL:", base);
 ---
 
 {/* Hero */}
@@ -175,6 +177,7 @@ const base = import.meta.env.BASE_URL;
                 class="block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft transition hover:shadow-md no-underline!"
                 >
                 <div class="aspect-video bg-slate-100 overflow-hidden">
+                  console.log(`{base}{post.data.heroImage}`);
                     {post.data.heroImage && (
                     <Image
                     src={`${base}${post.data.heroImage}`}
