@@ -1,0 +1,28 @@
+---
+interface Props {
+  variant?: "soft" | "outline" | "solid";
+}
+
+const {
+  variant = "soft",
+} = Astro.props;
+---
+
+<span
+  class:list={[
+    "inline-flex items-center rounded-full px-2.5 py-0.5",
+    "text-[11px] font-medium tracking-wide uppercase",
+
+    // Variants
+    variant === "soft" &&
+      "bg-brand-50 text-brand-700 ring-1 ring-brand-700/15",
+
+    variant === "outline" &&
+      "border border-slate-300 text-slate-600",
+
+    variant === "solid" &&
+      "bg-brand-700 text-white",
+  ]}
+>
+  <slot />
+</span>
