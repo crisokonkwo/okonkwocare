@@ -11,7 +11,7 @@ import drOkonkwoHeadshot from "../assets/dr-okonkwo-headshot.webp";
 import FourStepProcess from "../components/FourStepProcess.astro";
 import Badge from "../components/Badge.astro";
 
-import { ArrowRight } from "lucide-astro";
+import { ArrowRight, Check } from "lucide-astro";
 
 // import Badge from "../components/Badge.astro";
 
@@ -23,205 +23,161 @@ const base = import.meta.env.BASE_URL;
 	description="Discover Miami’s leader in holistic pediatric ADHD care. Okonkwo Care Pediatrics offers concierge-style visits focused on natural healing and personalized child wellness.">
 
 	<section class="bg-linear-to-b from-slate-50 to-white">
-  		<div class="mx-auto max-w-7xl px-4 py-12 md:py-10">
-    		<div class="grid items-start gap-10 lg:grid-cols-2">
-      			<!-- Left: Primary message -->
-      			<div class="space-y-6">
-					<header class="text-center lg:text-center">
-						<p class="text-xs font-semibold uppercase tracking-wide text-brand-700">
-							Welcome to Okonkwo Care Pediatrics
-						</p>
-						<h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-							Trusted Holistic Integrative Pediatric Care in Miami, Florida
-						</h1>
-					</header>
+  	<div class="mx-auto max-w-7xl px-4 py-12 md:py-10">
+      <div class="grid items-start gap-10 lg:grid-cols-2">
+        <!-- Left: Primary message -->
+        <div class="space-y-6">
+          <header class="text-center lg:text-center">
+            <p class="text-xs font-semibold uppercase tracking-wide text-brand-700">
+              Welcome to Okonkwo Care Pediatrics
+            </p>
+            <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+              Trusted Holistic Integrative Pediatric Care in Miami, Florida
+            </h1>
+          </header>
 
-					<p class="text-base sm:text-md leading-7 text-slate-700">
-					Okonkwo Care Pediatrics is a concierge-style practice led by Dr. Margaret Okonkwo, offering
-					personalized, unrushed visits that integrate evidence-based traditional pediatrics with holistic approach to support your child’s physical, emotional, and social well-being.
-					</p>
+          <p class="text-base sm:text-md leading-7 text-slate-700">
+          Okonkwo Care Pediatrics is a concierge-style practice led by Dr. Margaret Okonkwo, offering
+          personalized, unrushed visits that integrate evidence-based traditional pediatrics with holistic approach to support your child’s physical, emotional, and social well-being. From comprehensive preventive care to specialized ADHD evaluations and management, we prioritize strong doctor-patient relationships to ensure every child receives tailored, compassionate care from infancy to young adulthood.
+          </p>
 
-					<ul class="list-disc pl-5 space-y-2 text-sm sm:text-base text-slate-700">
-						<li class="flex gap-2">
-							<span class="mt-1 h-2 w-2 rounded-full bg-brand-700 flex-none"></span>
-							Preventive care from infancy through young adulthood
-						</li>
-						<li class="flex gap-2">
-							<span class="mt-1 h-2 w-2 rounded-full bg-brand-700 flex-none"></span>
-							Specialized ADHD evaluations and ongoing management
-						</li>
-						<li class="flex gap-2">
-							<span class="mt-1 h-2 w-2 rounded-full bg-brand-700 flex-none"></span>
-							Strong doctor–patient relationships to ensure tailored care
-						</li>
-					</ul>
+          <h2 class="text-xl font-bold tracking-tight text-slate-900 sm:text-xl mb-2">
+          Two ways Okonkwo Care Pediatrics support your child’s health
+          </h2>
 
-					<div class="flex flex-col gap-3 sm:flex-row sm:gap-4">
-						<Button href={`${base}services`} variant="primary" size="lg" ariaLabel="View Our Services">
-							View Our Services
-						</Button>
-						<Button href={`${base}contact`} variant="secondary" size="lg" ariaLabel="Contact Okonkwo Care Pediatrics">
-							Contact Us
-						</Button>
-					</div>
-					
-				</div>
+          <p class="mx-auto mt-2 max-w-xl text-sm leading-6 text-slate-600 lg:mx-0">
+          Our practice is built around two core offerings: a <span class="font-semibold text-slate-900">Holistic ADHD Program</span>
+          and a <span class="font-semibold text-slate-900">Concierge Membership</span> for unrushed, relationship-based pediatric care. Thoughtfully designed care paths for families seeking deeper support and long-term partnership.
+          </p>
 
-      			<!-- Right: Proof / differentiators -->
-      			<div class="space-y-4">
-					<h2 class="text-xl font-semibold tracking-tight text-slate-900 text-center lg:text-left">
-						What we do — and what makes us different
-					</h2>
+          <ul class="space-y-3 text-sm sm:text-base text-slate-700">
+            <li class="flex items-start gap-3">
+              <span class="mt-1 flex h-5 w-5 flex-none items-center justify-center rounded-full bg-brand-50 ring-1 ring-brand-700/20">
+                <Check class="h-3.5 w-3.5 text-brand-700" stroke-width="2.5" />
+              </span>
+              <span>
+                Holistic ADHD evaluations and root-cause, integrative support
+              </span>
+            </li>
 
-					<div class="rounded-3xl border border-slate-200 bg-white p-4 shadow-soft">
-						<div class="overflow-hidden rounded-2xl bg-slate-100">
-							<Image
-								src={doctorImage}
-								alt="Dr. Margaret Okonkwo providing personalized pediatric care"
-								class="w-full h-auto object-contain"
-								loading="eager"
-								decoding="async"
-								width={800}
-								height={600}
-								format="webp"
-							/>
-						</div>
+            <li class="flex items-start gap-3">
+              <span class="mt-1 flex h-5 w-5 flex-none items-center justify-center rounded-full bg-brand-50 ring-1 ring-brand-700/20">
+                <Check class="h-3.5 w-3.5 text-brand-700" stroke-width="2.5" />
+              </span>
+              <span>
+                Concierge access for longer visits, continuity, and direct communication
+              </span>
+            </li>
 
-          				<div class="mt-4 grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-            				<div class="rounded-2xl bg-slate-50 p-3">
-              					<div class="text-sm font-semibold text-slate-900">Unrushed visits</div>
-              					<div class="mt-1 text-xs leading-5 text-slate-600">Time to listen and plan.</div>
-            				</div>
-            				<div class="rounded-2xl bg-slate-50 p-3">
-              					<div class="text-sm font-semibold text-slate-900">Integrative approach</div>
-              					<div class="mt-1 text-xs leading-5 text-slate-600">Traditional + holistic support.</div>
-            				</div>
-            				<div class="rounded-2xl bg-slate-50 p-3">
-              					<div class="text-sm font-semibold text-slate-900">Continuity</div>
-              					<div class="mt-1 text-xs leading-5 text-slate-600">A consistent care team.</div>
-            				</div>
-          				</div>
-        			</div>
-      			</div>
-    		</div>
-  		</div>
-		<!-- <section class="mx-auto max-w-7xl px-4 pb-10">
-			<div class="grid gap-6 lg:grid-cols-1">
-			<Card
-				title="Well-child visits"
-				description="Age-appropriate screenings, growth monitoring, and preventive guidance."
-			/>
-			<Card
-				title="Sick visits"
-				description="Evaluation and treatment for common childhood illnesses and concerns."
-			/>
-			<Card
-				title="Holistic ADHD Program"
-				description="Discover compassionate, holistic ADHD care tailored to your child's unique needs. Our integrative approach supports families with personalized, nurturing solutions."
-			>
-				<Button href={`${base}services/adhd`} variant="ghost">Learn More 
-				<ArrowRight
-					class="inline h-4 w-4 transition-transform group-hover:translate-x-0.5"
-					stroke-width="1.75"
-					aria-hidden="true"
-				/>
-				</Button>
-			</Card>
-			</div>
-		</section> -->
-	</section>
+            <li class="flex items-start gap-3">
+              <span class="mt-1 flex h-5 w-5 flex-none items-center justify-center rounded-full bg-brand-50 ring-1 ring-brand-700/20">
+                <Check class="h-3.5 w-3.5 text-brand-700" stroke-width="2.5" />
+              </span>
+              <span>
+                Evidence-based pediatrics with a calm, whole-child approach
+              </span>
+            </li>
+          </ul>
+          
+          <!-- <div class="flex flex-col gap-3 sm:flex-row sm:gap-4">
+            <Button
+              href={`${base}services/adhd`}
+              variant="primary"
+              size="lg"
+              ariaLabel="Learn about the Holistic ADHD Program"
+            >
+              Holistic ADHD Program
+            </Button>
 
-	<section class="relative bg-white">
-  <div class="mx-auto max-w-7xl px-4 py-16 sm:py-20">
-    <div class="max-w-3xl">
-      {/* Headline */}
-      <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-        Holistic ADHD Care and Concierge Pediatrics
-      </h1>
+            <Button
+              href={`${base}services/membership`}
+              variant="secondary"
+              size="lg"
+              ariaLabel="Learn about Concierge Membership"
+            >
+              Concierge Membership
+            </Button>
+          </div> -->
 
-      {/* Subheadline */}
-      <p class="mt-4 text-base leading-7 text-slate-600">
-        Two focused ways we support families: a comprehensive, integrative ADHD
-        program and a concierge pediatric membership built around access, trust,
-        and unrushed care.
-      </p>
+          <div class="text-xs text-slate-500">
+            Questions? Call <a class="text-brand-700 underline underline-offset-2" href={`tel:${site.phoneTel}`}>{site.phoneDisplay}</a>
+          </div>
+        </div>
 
-      {/* CTAs */}
-      <div class="mt-6 flex flex-wrap gap-4">
-        <a
-          href="/services/adhd"
-          class="inline-flex items-center justify-center rounded-xl
-                 bg-brand-700 px-5 py-3 text-sm font-semibold text-white
-                 shadow-soft transition hover:bg-brand-800
-                 focus-visible:outline-none focus-visible:ring-2
-                 focus-visible:ring-brand-600"
-        >
-          Explore the Holistic ADHD Program
-        </a>
+        <!-- Right: Proof / differentiators -->
+        <div class="space-y-4">
+          <h2 class="text-xl font-semibold tracking-tight text-slate-900 text-center lg:text-left">
+            What makes our care different
+          </h2>
 
-        <a
-          href="/services/membership"
-          class="inline-flex items-center justify-center rounded-xl
-                 border border-slate-300 bg-white px-5 py-3 text-sm font-semibold
-                 text-slate-900 shadow-soft transition
-                 hover:border-slate-400 hover:bg-slate-50
-                 focus-visible:outline-none focus-visible:ring-2
-                 focus-visible:ring-brand-600"
-        >
-          Learn About Concierge Membership
-        </a>
+          <div class="rounded-3xl border border-slate-200 bg-white p-4 shadow-soft">
+            <div class="overflow-hidden rounded-2xl bg-slate-100">
+            <Image
+              src={doctorImage}
+              alt="Dr. Margaret Okonkwo providing personalized pediatric care"
+              class="w-full h-auto object-contain"
+              loading="eager"
+              decoding="async"
+              width={800}
+              height={600}
+              format="webp"
+            />
+            </div>
+
+            <div class="mt-4 grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+            <div class="rounded-2xl bg-slate-50 p-3">
+              <div class="text-sm font-semibold text-slate-900">Unrushed visits</div>
+              <div class="mt-1 text-xs leading-5 text-slate-600">Time to listen, explain, and plan.</div>
+            </div>
+            <div class="rounded-2xl bg-slate-50 p-3">
+              <div class="text-sm font-semibold text-slate-900">Integrative support</div>
+              <div class="mt-1 text-xs leading-5 text-slate-600">Traditional pediatrics + holistic options.</div>
+            </div>
+            <div class="rounded-2xl bg-slate-50 p-3">
+              <div class="text-sm font-semibold text-slate-900">Continuity</div>
+              <div class="mt-1 text-xs leading-5 text-slate-600">A trusted long-term relationship.</div>
+            </div>
+            </div>
+          </div>
+        </div>
       </div>
 
+      <!-- Primary offerings cards -->
+      <div class="mt-10 grid gap-6 md:grid-cols-2">
+        <!-- Membership -->
+        <div class="space-y-2">
+          <Badge variant="outline">Primary Care Model</Badge>
+          <Card
+            title="Concierge Membership"
+            description="Direct access to your pediatrician, unrushed visits, same-day communication, and continuity of care — without insurance barriers."
+          >
+            <Button href={`${base}services/membership`} variant="secondary">
+            Explore Membership
+            <ArrowRight class="ml-1 h-4 w-4" />
+            </Button>
+          </Card>
+        </div>
+
+        <!-- ADHD -->
+        <div class="space-y-2">
+          <Badge variant="soft">Specialty Program </Badge>
+          <Card
+            title="Holistic ADHD Program"
+            description="A comprehensive, evidence-informed ADHD program that addresses root causes influenced by neurobiological, environmental, genetic, nutritional, and lifestyle factors."
+          >			
+            <Button href={`${base}services/adhd`} variant="primary">
+            Learn about the ADHD Program
+            <ArrowRight class="ml-1 h-4 w-4" />
+            </Button>
+          </Card>
+        </div>
+      </div>
+      
       {/* Supporting line */}
       <p class="mt-4 text-xs text-slate-500">
         Evidence-informed care. Personalized relationships. A whole-child approach.
       </p>
     </div>
-  </div>
-</section>
-
-
-	<section class="bg-white border-slate-200">
-		<div class="mx-auto max-w-7xl px-4 py-12">
-			<header class="text-center max-w-2xl mx-auto">
-			<h2 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
-				Our Two Core Programs
-			</h2>
-			<p class="mt-3 text-sm sm:text-base text-slate-600">
-				Thoughtfully designed care paths for families seeking deeper support and long-term partnership.
-			</p>
-			</header>
-
-			<div class="mt-10 grid gap-6 md:grid-cols-2">
-				<!-- Membership -->
-				<div class="space-y-2">
-					<Badge variant="outline">Primary Care Model</Badge>
-					<Card
-						title="Concierge Membership"
-						description="Direct access to your pediatrician, unrushed visits, same-day communication, and continuity of care — without insurance barriers."
-					>
-						<Button href={`${base}services/membership`} variant="secondary">
-						Explore Membership
-						<ArrowRight class="ml-1 h-4 w-4" />
-						</Button>
-					</Card>
-				</div>
-
-				<!-- ADHD -->
-				<div class="space-y-2">
-					<Badge variant="soft">Specialty Program </Badge>
-					<Card
-						title="Holistic ADHD Program"
-						description="A comprehensive, evidence-informed ADHD program that addresses root causes influenced by neurobiological, environmental, genetic, nutritional, and lifestyle factors."
-					>			
-						<Button href={`${base}services/adhd`} variant="primary">
-						Learn about the ADHD Program
-						<ArrowRight class="ml-1 h-4 w-4" />
-						</Button>
-					</Card>
-				</div>
-			</div>
-		</div>
 	</section>
 
 
