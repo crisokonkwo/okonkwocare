@@ -156,6 +156,7 @@ import { CheckCircle2, Check } from "lucide-astro";
         {
         title: "Our Holistic ADHD Program",
         isHolistic: true,
+        badge: "Physician-led",
         items: [
             "Root-cause medical evaluation",
             "Neurobiological, genetic, environmental, and nutritional factors",
@@ -166,13 +167,15 @@ import { CheckCircle2, Check } from "lucide-astro";
     ].map((col) => (
         <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
         {col.isHolistic ? (
+            <span class="mb-2 inline-block rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-medium text-brand-700 ring-1 ring-brand-700/10">
+                {col.badge}
+            </span>
             <h3 class="text-sm font-semibold text-brand-800">{col.title}</h3>
         ) : null}
         {!col.isHolistic ? (
             <h3 class="text-sm font-semibold text-slate-900">{col.title}</h3>
         ) : null}
         
-
         <ul class="mt-3 space-y-2 text-sm text-slate-700">
             {col.items.map((item) => (
             <li class="flex items-start gap-2">
